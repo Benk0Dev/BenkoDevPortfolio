@@ -40,10 +40,3 @@
     padding: 0.35em 0.6em;
     border-radius: 1em;
 }
-
-@media only screen and (max-width: 1090px) {
-    main {
-        column-gap: 3em;
-        padding: 4em var(--spacing-on-sides);
-    }
-}

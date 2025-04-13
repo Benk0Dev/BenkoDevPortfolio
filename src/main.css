@@ -16,6 +16,8 @@
     --highlight-color: hsl(220, 90%, 56%);
     --secondary-highlight-color: hsl(220, 90%, 47%);
 
+    --navbar-bg-color: hsla(0, 0%, 100%, 0.8);
+
     --footer-bg-color: hsl(180, 2%, 8%);
     --footer-fg-color: hsl(0, 0%, 100%);
 
@@ -33,21 +35,23 @@
 /* Dark Theme */
 
 [data-theme="dark"] {
-    --bg-color: hsl(210, 20%, 10%);
+    --bg-color: hsl(210, 20%, 5%);
     --secondary-bg-color: hsl(210, 20%, 15%);
     --tertiary-bg-color: hsl(210, 18%, 28%);
-    --lighter-gradient-color: hsl(215, 15%, 16%);
-    --darker-gradient-color: hsl(207, 21%, 8%);
+    --lighter-gradient-color: hsl(220, 30%, 20%);
+    --darker-gradient-color: hsl(210, 20%, 4%);
 
     --fg-color: hsl(0, 0%, 95%);
     --secondary-fg-color: hsl(210, 10%, 75%);
     --tertiary-fg-color: hsl(0, 0%, 80%);
 
+    --navbar-bg-color: hsla(210, 20%, 5%, 0.8);
+
     --footer-fg-color: hsl(0, 0%, 95%);
 
     --scroll-bar-color: hsla(0, 0%, 50%, 0.5);
     --hover-bg-color: hsla(218, 41%, 54%, 0.15);
-    --form-input-color: hsl(212, 19%, 15%);
+    --form-input-color: hsl(212, 19%, 10%);
 
     --error-color: hsl(0, 70%, 50%);
     --highlight-fg-color: hsl(0, 0%, 95%);
@@ -225,7 +229,8 @@ p {
     position: absolute;
     top: 1em;
     z-index: 100;
-    background-color: var(--bg-color);
+    background-color: var(--navbar-bg-color);
+    backdrop-filter: blur(5px);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -548,6 +553,7 @@ input, textarea {
     color: var(--fg-color);
     font-family: "Inter", sans-serif;
     transition: border 0.1s ease;
+    font-size: 16px;
 }
 
 textarea {

@@ -54,8 +54,14 @@
     color: var(--highlight-fg-color);
 }
 
-@media only screen and (max-width: 840px) {
+@media only screen and (max-width: 852px) {
     .skillsGroupHeading {
         font-size: 0.9em;
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    .skillsGroupHeading {
+        font-size: 1em;
     }
 }

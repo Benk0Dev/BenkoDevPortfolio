@@ -4,27 +4,24 @@
     }
 }
 
+@media only screen and (max-width: 818px) {
+    #portfolio {
+        column-gap: 3.3em;
+    }
+}
+
 @media only screen and (max-width: 770px) {
     :root {
         --spacing-on-sides: 1em;
     }
 
+    html {
+        font-size: 90%;
+    }
+
     h1 {
-        font-size: 2em;
         align-self: center;
         text-align: center;
-    }
-
-    h2 {
-        font-size: 1.5em;
-    }
-
-    h3 {
-        font-size: 1.2em;
-    }
-
-    h4 {
-        font-size: 1em;
     }
 
     #portfolio {
@@ -74,14 +71,12 @@
     }
 }
 
-@media only screen and (max-width: 411px) {
-    .links-contact-container {
-        justify-content: center;
+@media only screen and (max-width: 500px) {
+    html {
+        font-size: 80%;
     }
-}
 
-@media only screen and (max-width: 378px) {
     h1 {
-        font-size: 1.75em;
+        font-size: 2.25em;
     }
 }
