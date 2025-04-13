@@ -34,7 +34,7 @@
     position: relative;
     background-color: var(--tertiary-fg-color);
     border-radius: 10em;
-    height: 0.7em;
+    height: 12px;
     width: 100%;
 }
 
@@ -42,12 +42,12 @@
     border-radius: 2em;
     position: absolute;
     background-color: var(--highlight-color);
-    height: 0.7em;
+    height: 12px;
 }
 
 .percentage {
     position: absolute;
-    font-size: 0.58em;
+    font-size: 10px;
     font-weight: 500;
     z-index: 1;
     color: var(--highlight-fg-color);
