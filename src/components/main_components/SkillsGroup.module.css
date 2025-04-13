@@ -1,0 +1,61 @@
+/* Skills */
+
+.skillsGroupHeading {
+    display: grid;
+    grid-template-columns: 1.8em auto 1fr;
+    align-items: center;
+    column-gap: 1em;
+}
+
+.skillsGroupHeading svg:first-of-type {
+    color: var(--highlight-color);
+}
+
+.chevron {
+    justify-self: flex-end;
+    color: var(--fg-color);
+    transition: transform 0.2s;
+}
+
+.chevronRotated {
+    transform: rotate(-180deg);
+}
+
+.skillsList {
+    margin-top: 1em;
+}
+
+.skill h4 {
+    margin: 0.5em 0 0.2em 0.3em;
+    color: var(--secondary-fg-color);
+}
+
+.skillBar {
+    position: relative;
+    background-color: var(--tertiary-fg-color);
+    border-radius: 10em;
+    height: 0.7em;
+    width: 100%;
+}
+
+.skillBarFill {
+    border-radius: 2em;
+    position: absolute;
+    background-color: var(--highlight-color);
+    height: 0.7em;
+}
+
+.percentage {
+    position: absolute;
+    top: 0.02em;
+    font-size: 0.58em;
+    font-weight: 500;
+    z-index: 1;
+    color: var(--highlight-fg-color);
+}
+
+@media only screen and (max-width: 840px) {
+    .skillsGroupHeading {
+        font-size: 0.9em;
+    }
+}

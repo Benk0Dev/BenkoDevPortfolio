@@ -1,0 +1,87 @@
+@media only screen and (max-width: 1090px) {
+    :root {
+        --spacing-on-sides: 3em;
+    }
+}
+
+@media only screen and (max-width: 770px) {
+    :root {
+        --spacing-on-sides: 1em;
+    }
+
+    h1 {
+        font-size: 2em;
+        align-self: center;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    h4 {
+        font-size: 1em;
+    }
+
+    #portfolio {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+        row-gap: 4em;
+    }
+
+    .about-me-wrapper {
+        min-height: auto;
+        max-width: none;
+    }
+
+    .about-me p {
+        text-align: center;
+    }
+
+    .links-contact-container {
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5em 1em;
+    }
+
+    .projects-container, .skills-container {
+        max-width: 100%;
+        min-width: 100%;
+    }
+
+    .skills-projects {
+        gap: 4em;
+    }
+
+    form {
+        row-gap: 2em;
+    }
+
+    .double-row {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 2em;
+    }
+
+    .footer-content {
+        grid-template-columns: auto;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 411px) {
+    .links-contact-container {
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-width: 378px) {
+    h1 {
+        font-size: 1.75em;
+    }
+}
