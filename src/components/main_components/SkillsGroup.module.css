@@ -27,7 +27,7 @@
 
 .skill h4 {
     margin: 0.5em 0 0.2em 0.3em;
-    color: var(--secondary-fg-color);
+    color: var(--fg-color);
 }
 
 .skillBar {
@@ -47,7 +47,6 @@
 
 .percentage {
     position: absolute;
-    top: 0.02em;
     font-size: 0.58em;
     font-weight: 500;
     z-index: 1;

@@ -16,7 +16,7 @@ export default function Project({ link, title, description, image, technologies 
             <div className={styles.projectDescription}>
                 <div className={styles.projectTitle}>
                     <h2>{title}</h2>
-                    <ArrowRight className={`${styles.arrow} rotate-arrow`} size="1.5em" strokeWidth={3.25} />
+                    <ArrowRight className={`${styles.arrow} rotate-arrow`} size="1.5em" strokeWidth={3} />
                 </div>
                 <p>{description}</p>
             </div>
