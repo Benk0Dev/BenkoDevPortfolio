@@ -63,4 +63,16 @@
     .skillsGroupHeading {
         font-size: 1em;
     }
+
+    .skillBar {
+        height: 10px;
+    }
+    
+    .skillBarFill {
+        height: 10px;
+    }
+    
+    .percentage {
+        font-size: 8px;
+    }
 }
