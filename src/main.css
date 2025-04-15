@@ -405,15 +405,9 @@ p {
     display: flex;
     flex-direction: column;
     row-gap: 2em;
-}
-
-.about-me.stuck {
+    height: calc(100vh - 5em - 0.15em - 12em);
     position: sticky;
     top: calc(5em + 0.15em + 6em);
-}
-
-.about-me.unstuck {
-    position: relative;
 }
 
 .about-me article {

@@ -15,8 +15,11 @@ import runCastImage from "/images/runcast.png";
 import benkoDevPortfolio from "/images/benkodev-portfolio.png";
 import portfolioWithBlogImage from "/images/portfolio-with-blog.png";
 import horseRaceSimulatorImage from "/images/horse-race-simulator.png";
+import horseRaceSimulatorVideo from "/videos/horse-race-simulator.mp4"
 import dynamicNoughtAndCrossesAIImage from "/images/dynamic-noughts-and-crosses-ai.png";
+import dynamicNoughtAndCrossesAIVideo from "/videos/dynamic-noughts-and-crosses-ai.mp4";
 import particlesCollisionSimulatorImage from "/images/particles-collision-simulator.png";
+import particlesCollisionSimulatorVideo from "/videos/particles-collision-simulator.mp4";
 
 const iconSize = "1.8em";
 const iconStrokeWidth = 2.25;
@@ -106,6 +109,7 @@ const projects: ProjectProps[] = [
         title: "Horse Race Simulator",
         description: "A horse race simulator, featuring customisable races and horses, live statistics updates, and virtual betting capabilities.",
         image: horseRaceSimulatorImage,
+        video: horseRaceSimulatorVideo,
         technologies: ["Java", "Java Swing"],
     },
     {
@@ -113,6 +117,7 @@ const projects: ProjectProps[] = [
         title: "Dynamic Noughts and Crosses AI",
         description: "A full-stack Noughts and Crosses application where the primary purpose is to play against an AI on a growing grid size which grows as you progress. Features include a leaderboard, back tracking moves, a customisable player vs player option and more.",
         image: dynamicNoughtAndCrossesAIImage,
+        video: dynamicNoughtAndCrossesAIVideo,
         technologies: ["Python", "Pygame", "SQLite"],
     },
     {
@@ -120,66 +125,21 @@ const projects: ProjectProps[] = [
         title: "Particles Collision Simulator",
         description: "A one-dimensional particle collision simulator which models the behavior of three balls contained between two walls, colliding with each other in a continuous loop. Leverages principles of physics such as the conservation of momentum and the law of restitution.",
         image: particlesCollisionSimulatorImage,
+        video: particlesCollisionSimulatorVideo,
         technologies: ["Python", "Pygame"],
     },
 ];
 
-const em = parseFloat(getComputedStyle(document.documentElement).fontSize);
-
 export default function MainSection() {
-    const portfolioRef = useRef<HTMLDivElement>(null);
-    const aboutMeRef = useRef<HTMLDivElement>(null);
-    const [isStuck, setIsStuck] = useState(true);
-    const [stickyPadding, setStickyPadding] = useState("");
     const [openedSkillsGroupIndex, setOpenedSkillsGroupIndex] = useState<number>(-1);
 
-    const maxMobileWidth = 770;
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const portfolio = portfolioRef.current;
-
-            if (!portfolio) return;
-            
-            if (window.innerWidth <= maxMobileWidth) return;
-
-            const portfolioRect = portfolio.getBoundingClientRect();
-
-            if (window.innerHeight >= portfolioRect.bottom) {
-                setIsStuck(false);
-                setStickyPadding(`${portfolioRect.height - window.innerHeight + (5 + 0.15) * em}px`);
-            } else {
-                setIsStuck(true);
-                setStickyPadding("");
-            }
-        };
-
-        const handleResize = () => {
-            if (window.innerWidth <= maxMobileWidth) {
-                setIsStuck(false);
-                setStickyPadding("");
-            } else {
-                handleScroll();
-            }
-        };
-    
-        window.addEventListener("scroll", handleScroll);
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("scroll", handleScroll)
-            window.removeEventListener("resize", handleResize);
-        };
-      }, []);
-
     return (
-        <div ref={portfolioRef} className="portfolio-container">
+        <div className="portfolio-container">
             <div id="portfolio" className="container">
                 {/* about me column */}
                 <div className="about-me-wrapper">
                     <div 
-                        className={`about-me ${isStuck ? "stuck" : "unstuck"}`}
-                        style={{ paddingTop: stickyPadding? stickyPadding : undefined }}
-                        ref={aboutMeRef}
+                        className="about-me"
                     >
                         <h1>About Me</h1>
                         <article>
@@ -249,6 +209,7 @@ export default function MainSection() {
                                     title={project.title}
                                     description={project.description}
                                     image={project.image}
+                                    video={project.video}
                                     technologies={project.technologies}
                                 />
                             ))}

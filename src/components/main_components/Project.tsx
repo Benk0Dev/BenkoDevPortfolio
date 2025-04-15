@@ -7,10 +7,12 @@ export interface ProjectProps {
     title: string;
     description: string;
     image: string;
+    video? : string;
     technologies: string[];
 }
 
-export default function Project({ link, title, description, image, technologies }: ProjectProps) {    
+export default function Project({ link, title, description, image, video, technologies }: ProjectProps) {    
+    console.log(title, video)
     return (
         <Link to={link} target="_blank" className={`${styles.project} card rotate-arrow-parent`}>
             <div className={styles.projectDescription}>
@@ -21,7 +23,14 @@ export default function Project({ link, title, description, image, technologies 
                 <p>{description}</p>
             </div>
             <div className={styles.projectImageContainer}>
-                <img src={image} alt={title} className={styles.projectImage} />
+                {video ? (
+                    <video className={styles.projectVideo} autoPlay loop muted playsInline>
+                        <source src={video} type="video/mp4" />
+                    </video>
+                ) : (
+                    <img src={image} alt={title} className={styles.projectImage} />
+                )}
+                
             </div>
             <div className={styles.technologies}>
                 {technologies.map((tech, index) => (

@@ -19,7 +19,7 @@
     color: var(--secondary-fg-color) !important;
 }
 
-.project img {
+.project img, .project video {
     width: 100%;
     height: auto;
     border-radius: 1em;

@@ -35,6 +35,12 @@
         max-width: none;
     }
 
+    .about-me {
+        height: auto;
+        position: relative;
+        top: 0;
+    }
+
     .about-me p {
         text-align: center;
     }
