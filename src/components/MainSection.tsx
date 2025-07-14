@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import CV from "/Benas_Kuliesis_CV.pdf";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,7 +9,8 @@ import SkillGroup, { SkillGroupProps } from "./main_components/SkillsGroup";
 import Project, { ProjectProps } from "./main_components/Project";
 
 // Skills and projects imports
-import { CodeXml, BookOpen, Settings, Terminal } from "lucide-react";
+import { CodeXml, BookOpen, Server, Settings, Terminal } from "lucide-react";
+import comingSoonImage from "/images/coming-soon.png";
 import goFetchImage from "/images/gofetch.png";
 import runCastImage from "/images/runcast.png";
 import benkoDevPortfolio from "/images/benkodev-portfolio.png";
@@ -35,7 +36,7 @@ const skillsGroups: Omit<SkillGroupProps, "isOpen" | "handleClick">[] = [
             { name: "TypeScript", percentage: 80 },
             { name: "HTML", percentage: 90 },
             { name: "CSS", percentage: 80 },
-            { name: "MySQL", percentage: 60 },
+            { name: "SQL", percentage: 60 },
             { name: "PHP", percentage: 50 },
         ]
     },
@@ -43,9 +44,21 @@ const skillsGroups: Omit<SkillGroupProps, "isOpen" | "handleClick">[] = [
         title: "Frameworks & Libraries",
         icon: <BookOpen size={iconSize} strokeWidth={iconStrokeWidth} />,
         skills: [
-            { name: "React", percentage: 80 },
+            { name: "Next.js", percentage: 80 },
+            { name: "React.js", percentage: 80 },
             { name: "Node.js", percentage: 70 },
             { name: "Express.js", percentage: 30 },
+            { name: "Tailwind CSS", percentage: 50 },
+        ]
+    },
+    {
+        title: "Backend & Databases",
+        icon: <Server size={iconSize} strokeWidth={iconStrokeWidth} />,
+        skills: [
+            { name: "RESTful APIs", percentage: 90 },
+            { name: "AWS", percentage: 50 },
+            { name: "Supabase", percentage: 60 },
+            { name: "Prisma", percentage: 80 },
         ]
     },
     {
@@ -55,6 +68,7 @@ const skillsGroups: Omit<SkillGroupProps, "isOpen" | "handleClick">[] = [
             { name: "Git", percentage: 90 },
             { name: "GitHub", percentage: 90 },
             { name: "Visual Studio Code", percentage: 90 },
+            { name: "Cursor", percentage: 90 },
             { name: "Figma", percentage: 80 },
             { name: "Canva", percentage: 70 },
             { name: "Visual Paradigm", percentage: 80 },
@@ -67,12 +81,19 @@ const skillsGroups: Omit<SkillGroupProps, "isOpen" | "handleClick">[] = [
             { name: "Object-Oriented Programming", percentage: 80 },
             { name: "Algorithms and Data Structures", percentage: 70 },
             { name: "Database Management", percentage: 60 },
-            { name: "RESTful APIs", percentage: 60 },
         ]
     },
 ];
 
 const projects: ProjectProps[] = [
+    {
+        link: "https://github.com/Benk0Dev/",
+        title: "The Prize Hunt",
+        description: "Currently developing a full-stack cash competitions web application for commercial use.",
+        image: comingSoonImage,
+        technologies: ["Next.js", "Supabase", "Supabase Auth", "Prisma", "TypeScript", "React", "Tailwind CSS"],
+
+    },
     {
         link: "https://github.com/Benk0Dev/GoFetch",
         title: "GoFetch",
@@ -144,7 +165,7 @@ export default function MainSection() {
                         <h1>About Me</h1>
                         <article>
                             <p>
-                                I am a BSc Computer Science student at Queen Mary University of London with experience in software and web development. My aim is to work part of a team of developers to create innovative software solutions that solve real-world problems.
+                                I am a SDE intern at Amazon and full-stack engineer. I have experience in developing a variety of web applications, from personal projects and univerisity projects to full-stack applications for commercial use. I am passionate about building high-quality systems and solving complex problems. I am always eager to learn new technologies and improve my skills.
                             </p>
                         </article>
                         <div className="links-contact-container">
