@@ -32,7 +32,7 @@ export default function Footer() {
                     <Link to="https://www.linkedin.com/in/benas-kuliesis/" target="_blank">
                         <Linkedin size="1.6em" strokeWidth={1.75} />
                     </Link>
-                    <Link to="https://github.com/BKuliesis" target="_blank">
+                    <Link to="https://github.com/Benk0Dev" target="_blank">
                         <Github size="1.6em" strokeWidth={1.75} />
                     </Link>
                     <Link to="mailto:bkuliesis@gmail.com" target="_blank">

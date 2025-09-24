@@ -165,7 +165,7 @@ export default function MainSection() {
                         <h1>About Me</h1>
                         <article>
                             <p>
-                                I am a SDE intern at Amazon and full-stack engineer. I have experience in developing a variety of web applications, from personal projects and univerisity projects to full-stack applications for commercial use. I am passionate about building high-quality systems and solving complex problems. I am always eager to learn new technologies and improve my skills.
+                                I am a Ex SDE intern at Amazon and full-stack engineer. I have experience in developing a variety of web applications, from personal projects and univerisity projects to full-stack applications for commercial use. I am passionate about building high-quality systems and solving complex problems. I am always eager to learn new technologies and improve my skills.
                             </p>
                         </article>
                         <div className="links-contact-container">
