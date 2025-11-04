@@ -89,7 +89,7 @@ const projects: ProjectProps[] = [
     {
         link: "https://github.com/Benk0Dev/",
         title: "The Prize Hunt",
-        description: "Currently developing a full-stack cash competitions web application for commercial use.",
+        description: "Currently developing a full-stack lottery-style cash competitions platform for a startup.",
         image: comingSoonImage,
         technologies: ["Next.js", "Supabase", "Supabase Auth", "Prisma", "TypeScript", "React", "Tailwind CSS"],
 
