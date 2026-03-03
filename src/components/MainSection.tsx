@@ -9,7 +9,7 @@ import SkillGroup, { SkillGroupProps } from "./main_components/SkillsGroup";
 import Project, { ProjectProps } from "./main_components/Project";
 
 // Skills and projects imports
-import { CodeXml, BookOpen, Server, Settings, Terminal } from "lucide-react";
+import { CodeXml, BookOpen, Server, CloudUpload, Settings, Terminal } from "lucide-react";
 import comingSoonImage from "/images/coming-soon.png";
 import goFetchImage from "/images/gofetch.png";
 import runCastImage from "/images/runcast.png";
@@ -41,24 +41,41 @@ const skillsGroups: Omit<SkillGroupProps, "isOpen" | "handleClick">[] = [
         ]
     },
     {
-        title: "Frameworks & Libraries",
+        title: "Frameworks",
         icon: <BookOpen size={iconSize} strokeWidth={iconStrokeWidth} />,
         skills: [
             { name: "Next.js", percentage: 80 },
             { name: "React.js", percentage: 80 },
+            { name: "React Native", percentage: 60 },
             { name: "Node.js", percentage: 70 },
             { name: "Express.js", percentage: 30 },
             { name: "Tailwind CSS", percentage: 50 },
         ]
     },
     {
-        title: "Backend & Databases",
+        title: "Databases",
         icon: <Server size={iconSize} strokeWidth={iconStrokeWidth} />,
         skills: [
             { name: "RESTful APIs", percentage: 90 },
-            { name: "AWS", percentage: 50 },
             { name: "Supabase", percentage: 60 },
             { name: "Prisma", percentage: 80 },
+        ]
+    },
+    {
+        title: "Cloud & Data",
+        icon: <CloudUpload size={iconSize} strokeWidth={iconStrokeWidth} />,
+        skills: [
+            { name: "AWS CDK", percentage: 80 },
+            { name: "Lambda", percentage: 70 },
+            { name: "API Gateway", percentage: 60 },
+            { name: "RDS", percentage: 50 },
+            { name: "Cognito Auth", percentage: 80 },
+            { name: "S3 Storage", percentage: 90 },
+            { name: "Athena SQL", percentage: 80 },
+            { name: "Glue ETL", percentage: 30 },
+            { name: "Quicksight BI", percentage: 80 },
+            { name: "Apache Spark", percentage: 30 },
+            { name: "Apache Hadoop", percentage: 30 },
         ]
     },
     {
@@ -67,8 +84,6 @@ const skillsGroups: Omit<SkillGroupProps, "isOpen" | "handleClick">[] = [
         skills: [
             { name: "Git", percentage: 90 },
             { name: "GitHub", percentage: 90 },
-            { name: "Visual Studio Code", percentage: 90 },
-            { name: "Cursor", percentage: 90 },
             { name: "Figma", percentage: 80 },
             { name: "Canva", percentage: 70 },
             { name: "Visual Paradigm", percentage: 80 },
@@ -80,12 +95,23 @@ const skillsGroups: Omit<SkillGroupProps, "isOpen" | "handleClick">[] = [
         skills: [
             { name: "Object-Oriented Programming", percentage: 80 },
             { name: "Algorithms and Data Structures", percentage: 70 },
-            { name: "Database Management", percentage: 60 },
+            { name: "Database Management", percentage: 90 },
+            { name: "Cloud Computing", percentage: 50 },
+            { name: "Distributed Systems", percentage: 40 },
+            { name: "Big Data Processing", percentage: 40 },
         ]
     },
 ];
 
 const projects: ProjectProps[] = [
+    {
+        link: "https://github.com/Benk0Dev/multilingual-messaging-app",
+        title: "Multilingual Messaging App",
+        description: "Currently developing a real-time chat platform with automatic message translation. Features end-to-end encryption, cloud infrastructure provisioning with AWS CDK, and a React Native mobile client.",
+        image: comingSoonImage,
+        technologies: ["React Native", "Expo", "AWS CDK", "AWS Lambda", "API Gateway", "WebSockets", "AWS RDS", "AWS Translate", "Prisma", "TypeScript"],
+
+    },
     {
         link: "https://github.com/Benk0Dev/",
         title: "The Prize Hunt",
