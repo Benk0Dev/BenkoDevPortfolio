@@ -21,36 +21,22 @@
     transform: rotate(-180deg);
 }
 
-.skillsList {
+.pillsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
     margin-top: 1em;
 }
 
-.skill h4 {
-    margin: 0.5em 0 0.2em 0.3em;
-    color: var(--fg-color);
-}
-
-.skillBar {
-    position: relative;
-    background-color: var(--tertiary-fg-color);
+.pill {
+    background-color: var(--hover-bg-color);
+    color: var(--highlight-color);
+    border: 1px solid var(--tertiary-bg-color);
     border-radius: 10em;
-    height: 12px;
-    width: 100%;
-}
-
-.skillBarFill {
-    border-radius: 2em;
-    position: absolute;
-    background-color: var(--highlight-color);
-    height: 12px;
-}
-
-.percentage {
-    position: absolute;
-    font-size: 10px;
+    padding: 0.3em 0.85em;
+    font-size: 0.82em;
     font-weight: 500;
-    z-index: 1;
-    color: var(--highlight-fg-color);
+    white-space: nowrap;
 }
 
 @media only screen and (max-width: 852px) {
@@ -62,17 +48,5 @@
 @media only screen and (max-width: 770px) {
     .skillsGroupHeading {
         font-size: 1em;
-    }
-
-    .skillBar {
-        height: 10px;
-    }
-    
-    .skillBarFill {
-        height: 10px;
-    }
-    
-    .percentage {
-        font-size: 8px;
     }
 }

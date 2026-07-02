@@ -1,20 +1,26 @@
 import { Link } from "react-router-dom";
 import styles from "./Project.module.css";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 
 export interface ProjectProps {
     link: string;
     title: string;
     description: string;
     image: string;
-    video? : string;
+    video?: string;
     technologies: string[];
+    featured?: boolean;
 }
 
-export default function Project({ link, title, description, image, video, technologies }: ProjectProps) {    
-    console.log(title, video)
+export default function Project({ link, title, description, image, video, technologies, featured }: ProjectProps) {
     return (
-        <Link to={link} target="_blank" className={`${styles.project} card rotate-arrow-parent`}>
+        <Link to={link} target="_blank" className={`${styles.project} ${featured ? styles.featuredProject : ""} card rotate-arrow-parent`}>
+            {featured && (
+                <div className={styles.featuredBadge}>
+                    <Star size="0.75em" strokeWidth={2.5} fill="currentColor" />
+                    <span>Featured</span>
+                </div>
+            )}
             <div className={styles.projectDescription}>
                 <div className={styles.projectTitle}>
                     <h2>{title}</h2>
@@ -30,7 +36,6 @@ export default function Project({ link, title, description, image, video, techno
                 ) : (
                     <img src={image} alt={title} className={styles.projectImage} />
                 )}
-                
             </div>
             <div className={styles.technologies}>
                 {technologies.map((tech, index) => (

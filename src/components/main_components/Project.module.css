@@ -3,6 +3,30 @@
 .project {
     display: grid;
     row-gap: 1em;
+    position: relative;
+}
+
+.featuredProject {
+    outline: 1px solid var(--tertiary-bg-color) !important;
+}
+
+.featuredProject:hover {
+    outline: 2px solid var(--tertiary-bg-color) !important;
+}
+
+.featuredBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    background: var(--tertiary-bg-color);
+    color: var(--highlight-fg-color);
+    font-size: 0.72em;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.3em 0.75em;
+    border-radius: 10em;
+    width: fit-content;
 }
 
 .projectTitle {
