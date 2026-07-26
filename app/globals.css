@@ -1,0 +1,164 @@
+@import 'tailwindcss';
+
+/*
+ * Dark is the default theme, so the tokens below are the dark values.
+ * next-themes puts `light` on <html>, and :root.light flips them.
+ */
+@theme {
+    --color-bg: #000000;
+    --color-fg: #fafaf9;
+    --color-muted: #8c8c8a;
+    --color-faint: #5a5a58;
+    --color-ghost: #3e3e3c;
+    --color-line: rgb(250 250 249 / 0.12);
+    --color-card: #0c0c0b;
+    --color-accent: #3d5afe;
+
+    --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+    --text-hero: clamp(3.5rem, 11vw, 9.5rem);
+    --text-hero--line-height: 1;
+    --text-hero--letter-spacing: -0.055em;
+
+    --text-section: clamp(2.5rem, 7vw, 5rem);
+    --text-section--line-height: 1;
+    --text-section--letter-spacing: -0.048em;
+
+    --text-project: clamp(2.5rem, 6vw, 4rem);
+    --text-project--line-height: 1;
+    --text-project--letter-spacing: -0.052em;
+
+    --text-lead: clamp(1.15rem, 2vw, 1.5rem);
+    --text-lead--line-height: 1.4;
+    --text-lead--letter-spacing: -0.018em;
+
+    --text-card: clamp(1.25rem, 2vw, 1.5rem);
+    --text-card--line-height: 1.2;
+    --text-card--letter-spacing: -0.035em;
+
+    --text-body: 0.875rem;
+    --text-body--line-height: 1.7;
+
+    --text-label: 0.625rem;
+    --text-label--line-height: 1;
+    --text-label--letter-spacing: 0.15em;
+
+    --ease-site: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+    /* White on black reads far fainter than black on off-white, so dark needs
+       roughly double the alpha to land at the same visual weight. */
+    --dot: rgb(250 250 249 / 0.22);
+    --dot-size: 22px;
+}
+
+:root.light {
+    --color-bg: #fafaf9;
+    --color-fg: #0a0a0a;
+    --color-muted: #6a6a68;
+    --color-faint: #9c9c9a;
+    --color-ghost: #c2c2bc;
+    --color-line: rgb(10 10 10 / 0.12);
+    --color-card: #f2f2ef;
+    --color-accent: #3d5afe;
+
+    --dot: rgb(10 10 10 / 0.1);
+}
+
+@media (width < 640px) {
+    :root {
+        --dot: rgb(250 250 249 / 0.15);
+        --dot-size: 16px;
+    }
+
+    :root.light {
+        --dot: rgb(10 10 10 / 0.06);
+    }
+}
+
+@layer base {
+    html {
+        color-scheme: dark;
+    }
+
+    html.light {
+        color-scheme: light;
+    }
+
+    body {
+        background-color: var(--color-bg);
+        color: var(--color-muted);
+        font-family: var(--font-display);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3 {
+        color: var(--color-fg);
+        font-weight: 500;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    /* Anchored sections sit clear of the floating nav pill on jump. */
+    [id] {
+        scroll-margin-top: 6rem;
+    }
+
+    ::selection {
+        background-color: var(--color-accent);
+        color: #fafaf9;
+    }
+}
+
+/* Prose column. Anything over three lines is left-aligned inside it. */
+@utility col-prose {
+    width: 100%;
+    max-width: 34rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+}
+
+/* Card grids and multi-column blocks. */
+@utility col-wide {
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+}
+
+@utility section-y {
+    padding-block: clamp(4rem, 10vw, 8rem);
+}
+
+/* Every piece of metadata, label, nav item, tag and bit of small print. */
+@utility label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 100ms !important;
+        transition-property: opacity !important;
+        transform: none !important;
+    }
+}

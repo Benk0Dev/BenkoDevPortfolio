@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+dist/
+build/
+
+.env*
+!.env.example
+
+.DS_Store
+*.pem
+
+npm-debug.log*
+.vercel
+next-env.d.ts
+*.tsbuildinfo
