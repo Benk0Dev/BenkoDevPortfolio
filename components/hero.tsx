@@ -3,17 +3,9 @@ import Link from 'next/link'
 import { ArrowDown, ArrowUpRight, Mail } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
 import { Dots } from '@/components/dots'
+import { SOCIALS } from '@/data/socials'
 
-const SOCIALS = [
-    {
-        label: 'LinkedIn',
-        href: 'https://www.linkedin.com/in/benas-kuliesis/',
-        Icon: LinkedinIcon,
-    },
-    { label: 'GitHub', href: 'https://github.com/Benk0Dev', Icon: GithubIcon },
-    // mailto hands off to a mail client, so no new tab to open.
-    { label: 'Email', href: 'mailto:bkuliesis@gmail.com', Icon: Mail, sameTab: true },
-]
+const ICONS = { LinkedIn: LinkedinIcon, GitHub: GithubIcon, Email: Mail }
 
 // Rise and fade on load, 40ms apart, once. Plain CSS, so the hero stays a
 // server component and ships no JavaScript of its own.
@@ -58,7 +50,9 @@ export function Hero() {
                         <ArrowUpRight size={14} />
                     </Link>
 
-                    {SOCIALS.map((social) => (
+                    {SOCIALS.map((social) => {
+                        const Icon = ICONS[social.label as keyof typeof ICONS]
+                        return (
                         <a
                             key={social.label}
                             href={social.href}
@@ -67,9 +61,10 @@ export function Hero() {
                             aria-label={social.label}
                             className="flex size-12 items-center justify-center rounded-full border-[0.5px] border-line text-fg transition-colors duration-200 hover:bg-chip"
                         >
-                            <social.Icon size={18} />
+                            <Icon size={18} />
                         </a>
-                    ))}
+                        )
+                    })}
                 </div>
             </div>
 

@@ -14,6 +14,10 @@ const LINKS = [
 export function Nav() {
     const pathname = usePathname()
     const [scrolled, setScrolled] = useState(false)
+    const isHome = pathname === '/'
+    // Project pages open on the pill. There is no full height hero for the
+    // bare bar to sit on top of and scroll away with.
+    const pill = scrolled || !isHome
 
     // A sentinel beats a scroll listener here, no work on the main thread per frame.
     useEffect(() => {
@@ -25,7 +29,6 @@ export function Nav() {
     }, [])
 
     // Anchors on the homepage, absolute links back to it everywhere else.
-    const isHome = pathname === '/'
     const href = (hash: string) => {
         if (hash === '#home') return isHome ? '#home' : '/'
         return isHome ? hash : `/${hash}`
@@ -34,10 +37,12 @@ export function Nav() {
     return (
         <>
             {/* Belongs to the top of the document, so it scrolls away with the
-                page. Only the pill follows the viewport. */}
+                page. Only the pill follows the viewport. Project pages skip it
+                entirely, they open on the pill. */}
+            {isHome && (
             <header
-                inert={scrolled}
-                aria-hidden={scrolled}
+                inert={pill}
+                aria-hidden={pill}
                 className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-6 sm:px-10"
             >
                 <Logo href={href('#home')} />
@@ -45,6 +50,7 @@ export function Nav() {
                 <NavLinks href={href} />
                 <ThemeToggle className="hover:bg-chip" />
             </header>
+            )}
 
             {/* Takes over once the bar above has cleared the viewport, so the
                 two never overlap and nothing has to animate across the screen.
@@ -56,11 +62,11 @@ export function Nav() {
                 Centring is done with a translate rather than a flex parent for
                 the same reason, so the transform composes with the animation. */}
             <nav
-                inert={!scrolled}
-                aria-hidden={!scrolled}
+                inert={!pill}
+                aria-hidden={!pill}
                 aria-label="Primary"
                 className={`fixed top-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-6.5 rounded-[99px] border-[0.5px] border-line bg-pill p-2.5 pl-[var(--pill-pad-left)] backdrop-blur-md backdrop-saturate-150 transition-[opacity,transform] ease-site will-change-transform ${
-                    scrolled
+                    pill
                         ? 'translate-y-0 scale-100 opacity-100 duration-420'
                         : '-translate-y-4 scale-95 opacity-0 duration-180'
                 }`}

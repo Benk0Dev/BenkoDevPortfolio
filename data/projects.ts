@@ -38,7 +38,41 @@ export const PROJECTS: Project[] = [
         year: '2026',
         status: 'shipped',
         stack: ['React Native', 'AWS CDK', 'Lambda', 'DynamoDB'],
-        links: {},
+        links: { github: 'TODO', demo: 'TODO' },
+        role: 'Sole engineer',
+        // Empty src renders a placeholder frame, so the slider can be built
+        // and checked before real screenshots exist.
+        media: [
+            { src: '', alt: 'TODO', type: 'image' },
+            { src: '', alt: 'TODO', type: 'image' },
+            { src: '', alt: 'TODO', type: 'image' },
+            { src: '', alt: 'TODO', type: 'image' },
+        ],
+        overview: [
+            'TODO: what the project is, who it is for and what shipping it involved.',
+            'TODO: a second paragraph only if the first cannot carry it alone.',
+        ],
+        stackGrouped: [
+            { group: 'Client', items: ['React Native', 'Expo'] },
+            { group: 'Backend', items: ['AWS CDK', 'Lambda', 'API Gateway'] },
+            { group: 'Data', items: ['DynamoDB', 'Prisma'] },
+        ],
+        decisions: [
+            {
+                title: 'TODO: first decision',
+                body: 'TODO: what the options were, what was measured and why this one won. Two or three sentences.',
+            },
+            {
+                title: 'TODO: second decision',
+                body: 'TODO: the trade off accepted and what it bought.',
+            },
+        ],
+        results: [
+            { value: '4.9', label: 'Overall' },
+            { value: '10', label: 'Languages' },
+            { value: '13', label: 'Testers' },
+            { value: '2', label: 'Platforms' },
+        ],
     },
     {
         slug: 'dummy-second',
@@ -69,6 +103,8 @@ export const PROJECTS: Project[] = [
         status: 'shipped',
         stack: ['React', 'Vite'],
         links: {},
+        // Deliberately sparse, to prove a thin entry still looks intentional.
+        overview: ['TODO: one paragraph is enough for an archive entry.'],
     },
     {
         slug: 'dummy-archive-two',
