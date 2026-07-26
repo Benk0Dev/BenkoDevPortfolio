@@ -59,7 +59,7 @@ export function Nav() {
                 inert={!scrolled}
                 aria-hidden={!scrolled}
                 aria-label="Primary"
-                className={`fixed top-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-6.5 rounded-[99px] border-[0.5px] border-line bg-pill py-2.5 pr-2.5 pl-6 backdrop-blur-md backdrop-saturate-150 transition-[opacity,transform] ease-site will-change-transform ${
+                className={`fixed top-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-6.5 rounded-[99px] border-[0.5px] border-line bg-pill p-2.5 pl-[var(--pill-pad-left)] backdrop-blur-md backdrop-saturate-150 transition-[opacity,transform] ease-site will-change-transform ${
                     scrolled
                         ? 'translate-y-0 scale-100 opacity-100 duration-420'
                         : '-translate-y-4 scale-95 opacity-0 duration-180'

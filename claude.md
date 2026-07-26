@@ -80,11 +80,13 @@ Define once in `@theme`, flip under `.dark`. Never hardcode hex in components.
 Dark (default)          Light
 bg      #000000         #FAFAF9
 fg      #FAFAF9         #0A0A0A
-muted   #8C8C8A         #6A6A68
-faint   #5A5A58         #9C9C9A
+muted   #B2B2B0         #4E4E4C
+subtle  #949492         #6B6B69
+faint   #7A7A78         #858583
 ghost   #3E3E3C         #C2C2BC
 line    rgb(250 250 249 / 0.12)   rgb(10 10 10 / 0.12)
 card    #0C0C0B         #F2F2EF
+card-hover #171716      #E9E9E5
 accent  #3D5AFE         #3D5AFE
 ```
 
@@ -120,6 +122,10 @@ text-transform: uppercase
 ```
 
 `text-wrap: balance` on headings, `text-wrap: pretty` on body.
+
+The card size is `--text-card-title` in `@theme`, not `--text-card`. Tailwind
+derives `text-*` utilities from both `--text-*` and `--color-*`, so a size and
+a colour sharing a name collide and the colour wins.
 
 ---
 
@@ -217,8 +223,12 @@ centre, theme toggle right.
 
 **Scrolled:** a single centred floating pill containing logo, links and toggle.
 Background `#131312`, `0.5px` border, `border-radius: 99px`, backdrop blur.
-Padding is `8px 8px 8px 20px` with a `26px` gap between the logo, the link
-list and the toggle. The link list needs breathing room around it.
+Padding is an even `10px` with a `26px` gap between the logo, the link list
+and the toggle. The logo and the toggle are both square boxes, so the padding
+has no reason to be asymmetric. The link list needs breathing room around it.
+
+Left padding is `--pill-pad-left` in `globals.css`, kept on its own so the
+pill can be balanced by eye without touching the component.
 
 **Transition is a crossfade, not a morph.** Fade the bare nav out over 150ms,
 fade and rise the pill in with `scale(0.96)` to `scale(1)`. Do not try to
@@ -249,14 +259,16 @@ heading on jump.
 ## Data model
 
 One file, `data/projects.ts`. One type. `tier` controls homepage presentation
-only, every project gets a slug page.
+only, every project gets a slug page. `featured` is separate from `tier` and
+only decides whether a card carries the Featured pill.
 
 ```ts
 export type Project = {
   slug: string
-  tier: 'featured' | 'archive'
+  tier: 'project' | 'archive'
   title: string
   tagline: string
+  featured?: boolean
   year: string
   status: 'shipped' | 'in progress' | 'prototype'
   stack: string[]

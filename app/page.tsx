@@ -1,20 +1,15 @@
 import { About } from '@/components/about'
-import { Dots } from '@/components/dots'
+import { Archive } from '@/components/archive'
 import { Hero } from '@/components/hero'
+import { Projects } from '@/components/projects'
 
 export default function Home() {
     return (
         <main>
             <Hero />
-
             <About />
-
-            {/* Placeholder anchor target until Projects is built. Only the hero
-                is full viewport height, every other section sizes to content. */}
-            <section id="projects" className="section-y relative text-center">
-                <Dots />
-                <h2 className="text-section">Projects</h2>
-            </section>
+            <Projects />
+            <Archive />
         </main>
     )
 }
