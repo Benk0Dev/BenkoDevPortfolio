@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
@@ -14,6 +15,29 @@ export function generateStaticParams() {
 
 // Anything not in the list above is a 404 rather than rendered on demand.
 export const dynamicParams = false
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+    const { slug } = await params
+    const project = PROJECTS.find((entry) => entry.slug === slug)
+    if (!project) return {}
+
+    // The title template in the root layout appends the site name.
+    return {
+        title: project.title,
+        description: project.tagline,
+        alternates: { canonical: `/projects/${slug}` },
+        openGraph: {
+            type: 'article',
+            title: project.title,
+            description: project.tagline,
+            url: `/projects/${slug}`,
+        },
+    }
+}
 
 export default async function ProjectPage({
     params,

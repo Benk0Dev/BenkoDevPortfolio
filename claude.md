@@ -54,7 +54,7 @@ Footer      source link left, social icons right
 Project page:
 
 ```
-Pill nav
+Nav, same two states as everywhere else
 ← Projects
 Title, tagline, meta row, external link pills
 Slider
@@ -445,11 +445,13 @@ Commit after each. One section per session.
 5. Projects cards and archive list
 6. Stack strip and footer
 7. `/projects/[slug]` and `generateStaticParams`
-8. Metadata, OG images, sitemap, JSON-LD Person schema
-9. Reduced motion pass, mobile pass, Lighthouse pass
+8. Metadata, sitemap, robots, JSON-LD Person schema
+9. Populate `data/projects.ts` with the real projects and their images
+10. OG images, once there is real copy and artwork to render
+11. Reduced motion pass, mobile pass, Lighthouse pass
 
-`data/projects.ts` gets populated alongside the sections that read from it,
-not as a step of its own.
+OG images wait for step 9, they render the real titles and artwork and there
+is no point generating them from placeholder copy.
 
 ---
 

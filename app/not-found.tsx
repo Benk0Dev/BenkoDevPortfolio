@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { Dots } from '@/components/dots'
@@ -8,6 +9,8 @@ import { Footer } from '@/components/footer'
  * dynamicParams to false, so anything outside generateStaticParams lands here
  * rather than being rendered on demand.
  */
+export const metadata: Metadata = { title: '404' }
+
 export default function NotFound() {
     return (
         <main className="flex min-h-dvh flex-col">
