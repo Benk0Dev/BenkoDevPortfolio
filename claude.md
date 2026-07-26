@@ -426,15 +426,17 @@ public/
 Commit after each. One section per session.
 
 1. Tokens, fonts, theme switching, layout primitives
-2. `data/projects.ts` with Lingua fully populated as the reference entry
-3. Nav, both states
-4. Hero
-5. About
-6. Projects cards and archive list
-7. Stack strip and footer
-8. `/projects/[slug]` and `generateStaticParams`
-9. Metadata, OG images, sitemap, JSON-LD Person schema
-10. Reduced motion pass, mobile pass, Lighthouse pass
+2. Nav, both states
+3. Hero
+4. About
+5. Projects cards and archive list
+6. Stack strip and footer
+7. `/projects/[slug]` and `generateStaticParams`
+8. Metadata, OG images, sitemap, JSON-LD Person schema
+9. Reduced motion pass, mobile pass, Lighthouse pass
+
+`data/projects.ts` gets populated alongside the sections that read from it,
+not as a step of its own.
 
 ---
 

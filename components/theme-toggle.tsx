@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import { Monitor, Moon, Sun } from 'lucide-react'
+import { Moon, Sun, SunMoon } from 'lucide-react'
 
 const THEMES = ['system', 'light', 'dark'] as const
 
+// SunMoon rather than a monitor, the site is read on phones as much as desktops.
 const ICONS = {
-    system: Monitor,
+    system: SunMoon,
     light: Sun,
     dark: Moon,
 }
@@ -18,7 +19,7 @@ const LABELS = {
     dark: 'Dark theme',
 }
 
-export function ThemeToggle() {
+export function ThemeToggle({ className = '' }: { className?: string }) {
     const { theme, setTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
 
@@ -40,9 +41,9 @@ export function ThemeToggle() {
             type="button"
             onClick={cycle}
             aria-label={current ? `${LABELS[current]}, click to change` : 'Change theme'}
-            className="flex size-4 items-center justify-center text-muted transition-colors duration-200 hover:text-fg"
+            className={`pointer-events-auto flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted transition-colors duration-200 hover:text-fg ${className}`}
         >
-            {Icon && <Icon size={16} />}
+            {Icon && <Icon size={20} />}
         </button>
     )
 }

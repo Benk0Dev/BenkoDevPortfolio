@@ -14,6 +14,13 @@
     --color-card: #0c0c0b;
     --color-accent: #3d5afe;
 
+    /* Scrolled nav pill, transparent enough for the backdrop blur to read. */
+    --color-pill: rgb(19 19 18 / 0.62);
+    /* Raised surface inside the pill, e.g. the theme toggle. Translucent so it
+       lifts off whatever it sits on rather than needing its own hex. */
+    --color-chip: rgb(250 250 249 / 0.09);
+    --color-chip-hover: rgb(250 250 249 / 0.15);
+
     --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
     --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
@@ -63,6 +70,9 @@
     --color-line: rgb(10 10 10 / 0.12);
     --color-card: #f2f2ef;
     --color-accent: #3d5afe;
+    --color-pill: rgb(236 236 232 / 0.62);
+    --color-chip: rgb(10 10 10 / 0.06);
+    --color-chip-hover: rgb(10 10 10 / 0.13);
 
     --dot: rgb(10 10 10 / 0.1);
 }
