@@ -49,7 +49,7 @@ export default async function ProjectPage({
     if (!project) notFound()
 
     return (
-        <main>
+        <main className="flex min-h-dvh flex-col">
             <section className="relative pt-28 pb-16">
                 <Dots />
 

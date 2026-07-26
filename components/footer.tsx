@@ -4,9 +4,11 @@ import { SOCIALS } from '@/data/socials'
 
 const ICONS = { LinkedIn: LinkedinIcon, GitHub: GithubIcon, Email: Mail }
 
+// mt-auto so a short page still pushes the footer to the bottom. It does
+// nothing unless the parent is a flex column, so the homepage is unaffected.
 export function Footer() {
     return (
-        <footer className="relative border-t border-line">
+        <footer className="relative mt-auto border-t border-line">
             <div className="flex w-full items-center justify-between gap-6 px-6 py-8 sm:px-10">
                 <a
                     href="https://github.com/Benk0Dev/BenkoDevPortfolio"
