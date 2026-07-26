@@ -1,49 +1,45 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { Moon, Sun, SunMoon } from 'lucide-react'
 
 const THEMES = ['system', 'light', 'dark'] as const
 
-// SunMoon rather than a monitor, the site is read on phones as much as desktops.
-const ICONS = {
-    system: SunMoon,
-    light: Sun,
-    dark: Moon,
-}
+type ThemeName = (typeof THEMES)[number]
 
-const LABELS = {
-    system: 'System theme',
-    light: 'Light theme',
-    dark: 'Dark theme',
+function readPref(): ThemeName {
+    const pref = document.documentElement.dataset.themePref
+    return THEMES.includes(pref as ThemeName) ? (pref as ThemeName) : 'system'
 }
 
 export function ThemeToggle({ className = '' }: { className?: string }) {
     const { theme, setTheme } = useTheme()
-    const [mounted, setMounted] = useState(false)
 
-    // The server has no idea which theme is active, so the first client render
-    // has to match its empty output before showing the real state.
-    useEffect(() => setMounted(true), [])
-
-    const current = mounted && theme && theme in ICONS ? (theme as keyof typeof ICONS) : null
+    // Keep the attribute the CSS reads in step with next-themes.
+    useEffect(() => {
+        if (theme) document.documentElement.dataset.themePref = theme
+    }, [theme])
 
     function cycle() {
-        const index = THEMES.indexOf((theme ?? 'system') as (typeof THEMES)[number])
-        setTheme(THEMES[(index + 1) % THEMES.length])
+        const next = THEMES[(THEMES.indexOf(readPref()) + 1) % THEMES.length]
+        document.documentElement.dataset.themePref = next
+        setTheme(next)
     }
-
-    const Icon = current ? ICONS[current] : null
 
     return (
         <button
             type="button"
             onClick={cycle}
-            aria-label={current ? `${LABELS[current]}, click to change` : 'Change theme'}
+            aria-label="Change theme"
             className={`pointer-events-auto flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted transition-colors duration-200 hover:text-fg ${className}`}
         >
-            {Icon && <Icon size={20} />}
+            {/* All three ship in the markup and CSS picks one off the attribute
+                the inline script sets before first paint. Choosing in React
+                instead would leave the button empty until hydration. */}
+            <SunMoon size={20} className="theme-icon theme-icon-system" />
+            <Sun size={20} className="theme-icon theme-icon-light" />
+            <Moon size={20} className="theme-icon theme-icon-dark" />
         </button>
     )
 }

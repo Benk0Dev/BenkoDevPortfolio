@@ -16,6 +16,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             className={`${display.variable} ${mono.variable}`}
             suppressHydrationWarning
         >
+            <head>
+                {/* Runs before paint so the toggle renders the right icon
+                    immediately. Reads the same key next-themes writes. */}
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `try{document.documentElement.dataset.themePref=localStorage.getItem('theme')||'system'}catch(e){}`,
+                    }}
+                />
+            </head>
             <body>
                 <ThemeProvider>
                     {/* Sits just below the top bar. Once it leaves the viewport the bar has

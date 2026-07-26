@@ -88,6 +88,50 @@
     }
 }
 
+/* Hero load in. CSS rather than a JS animation library, it is a plain
+   stagger and importing one would cost 47kb of JavaScript. */
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@utility rise-in {
+    animation: rise-in 420ms var(--ease-site) both;
+}
+
+/* The theme toggle ships all three icons and CSS picks one, so the right icon
+   is on screen at first paint rather than after hydration. */
+.theme-icon {
+    display: none;
+}
+
+:root:not([data-theme-pref]) .theme-icon-system,
+:root[data-theme-pref='system'] .theme-icon-system,
+:root[data-theme-pref='light'] .theme-icon-light,
+:root[data-theme-pref='dark'] .theme-icon-dark {
+    display: block;
+}
+
+/* Theme specific assets. Images cannot flip with a token, so the pair is
+   rendered and one is hidden. */
+.light-only {
+    display: none;
+}
+
+:root.light .dark-only {
+    display: none;
+}
+
+:root.light .light-only {
+    display: block;
+}
+
 @layer base {
     html {
         color-scheme: dark;

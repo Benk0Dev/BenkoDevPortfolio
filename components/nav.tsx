@@ -92,7 +92,7 @@ function Logo({ href }: { href: string }) {
 
 function NavLinks({ href }: { href: (hash: string) => string }) {
     return (
-        <ul className="-mx-3 flex items-center gap-2 font-mono text-xs tracking-[0.15em] uppercase">
+        <ul className="-mx-3 flex items-center gap-2 font-mono text-label tracking-[0.15em] uppercase">
             {LINKS.map((link) => (
                 <li key={link.label}>
                     {/* No active state by design, they only brighten on hover. */}
