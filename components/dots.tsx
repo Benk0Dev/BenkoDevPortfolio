@@ -1,7 +1,7 @@
 /*
- * Framing pattern for both edges of a section, faded toward the centre so the
- * content itself sits on clean background. Never faded top-down, that collides
- * with the hero photo fade.
+ * Framing pattern down the left and right edges of a section, faded out toward
+ * the centre so the content itself sits on clean background. Never faded
+ * top-down, that collides with the hero photo fade.
  */
 export function Dots() {
     return (
@@ -13,9 +13,9 @@ export function Dots() {
                     'radial-gradient(circle, var(--dot) 2px, transparent 2px)',
                 backgroundSize: 'var(--dot-size) var(--dot-size)',
                 maskImage:
-                    'radial-gradient(ellipse 55% 65% at 50% 45%, transparent 35%, black 100%)',
+                    'linear-gradient(to right, black 0%, transparent 24%, transparent 76%, black 100%)',
                 WebkitMaskImage:
-                    'radial-gradient(ellipse 55% 65% at 50% 45%, transparent 35%, black 100%)',
+                    'linear-gradient(to right, black 0%, transparent 24%, transparent 76%, black 100%)',
             }}
         />
     )

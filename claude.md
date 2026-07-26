@@ -182,26 +182,27 @@ Never mix these up. An internal link with `↗` reads as broken.
 
 ## Dot background
 
-Framing pattern on both edges of every section, faded toward the centre so
-content sits on clean black.
+Framing pattern down the left and right edges of every section, faded out
+toward the centre so content sits on clean black. The mask runs horizontally,
+so the dots form two vertical bands rather than a ring.
 
 ```css
 .dots {
   background-image: radial-gradient(circle, var(--dot) 2px, transparent 2px);
   background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse 55% 65% at 50% 45%, transparent 35%, black 100%);
+  mask-image: linear-gradient(to right, black 0%, transparent 24%, transparent 76%, black 100%);
 }
 ```
 
 Both stops must carry the same radius. A smaller transparent stop kills the
 antialiasing and the dots go hard edged.
 
-`--dot` is `rgb(250 250 249 / 0.22)` dark, `rgb(10 10 10 / 0.10)` light. Dark
+`--dot` is `rgb(250 250 249 / 0.16)` dark, `rgb(10 10 10 / 0.08)` light. Dark
 needs roughly double the alpha, white on black reads far fainter than black on
 off-white at the same value.
 
 On mobile, tighten `background-size` to 16px and drop to
-`rgb(250 250 249 / 0.15)` dark, `rgb(10 10 10 / 0.06)` light.
+`rgb(250 250 249 / 0.11)` dark, `rgb(10 10 10 / 0.05)` light.
 
 Never fade the dots top-down. It collides with the hero photo fade.
 
