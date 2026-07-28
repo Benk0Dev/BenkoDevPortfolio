@@ -86,7 +86,7 @@ export function Slider({ media }: { media: Media[] }) {
             </div>
 
             {many && (
-                <div className="mt-6 flex items-center justify-center gap-2">
+                <div className="mt-4 flex items-center justify-center">
                     {media.map((item, i) => (
                         <button
                             key={i}
@@ -94,10 +94,17 @@ export function Slider({ media }: { media: Media[] }) {
                             onClick={() => jump(i)}
                             aria-label={`Go to slide ${i + 1}`}
                             aria-current={i === index}
-                            className={`h-1 cursor-pointer rounded-full transition-all duration-200 ease-site ${
-                                i === index ? 'w-5 bg-accent' : 'w-1 bg-ghost hover:bg-faint'
-                            }`}
-                        />
+                            className="group/dot flex size-6 cursor-pointer items-center justify-center"
+                        >
+                            {/* The bar is small, the button around it is not. */}
+                            <span
+                                className={`h-1 rounded-full transition-all duration-200 ease-site ${
+                                    i === index
+                                        ? 'w-5 bg-accent'
+                                        : 'w-1 bg-ghost group-hover/dot:bg-faint'
+                                }`}
+                            />
+                        </button>
                     ))}
                 </div>
             )}

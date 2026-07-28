@@ -40,7 +40,10 @@ export function Hero() {
                 </p>
 
                 <div className="rise-in mt-10 flex items-center gap-3" style={delay(3)}>
-                    <Link
+                    {/* A plain anchor, not next/link. Link prefetches, and /cv
+                        redirects to the PDF, so every visitor was downloading
+                        it whether they opened it or not. */}
+                    <a
                         href="/cv"
                         target="_blank"
                         rel="noreferrer"
@@ -48,7 +51,7 @@ export function Hero() {
                     >
                         View CV
                         <ArrowUpRight size={14} />
-                    </Link>
+                    </a>
 
                     {SOCIALS.map((social) => {
                         const Icon = ICONS[social.label as keyof typeof ICONS]
@@ -71,7 +74,7 @@ export function Hero() {
             <a
                 href="#about"
                 style={delay(5)}
-                className="label rise-in absolute bottom-10 flex items-center gap-2 text-faint transition-colors duration-200 hover:text-muted"
+                className="label rise-in absolute bottom-8 flex items-center gap-2 px-3 py-2 text-faint transition-colors duration-200 hover:text-muted"
             >
                 Scroll
                 <ArrowDown size={12} />

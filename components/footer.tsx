@@ -14,7 +14,7 @@ export function Footer() {
                     href="https://github.com/Benk0Dev/BenkoDevPortfolio"
                     target="_blank"
                     rel="noreferrer"
-                    className="label flex items-center gap-2 text-muted transition-colors duration-200 hover:text-fg"
+                    className="label -my-2 flex items-center gap-2 py-2 text-muted transition-colors duration-200 hover:text-fg"
                 >
                     This site on GitHub
                     {/* Leaves the site, so an up right arrow. */}

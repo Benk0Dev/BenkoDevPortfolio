@@ -266,4 +266,14 @@
         transition-property: opacity !important;
         transform: none !important;
     }
+
+    /* The entry animations have to be cancelled outright, not shortened.
+       Clamping the duration on a view() timeline leaves the animation pinned
+       at its opening frame, which is opacity 0, so the content never appears. */
+    .rise-in,
+    .rise-on-view,
+    .slide-in {
+        animation: none !important;
+        opacity: 1 !important;
+    }
 }

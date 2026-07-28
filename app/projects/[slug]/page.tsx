@@ -57,7 +57,7 @@ export default async function ProjectPage({
                 <div className="col-prose">
                     <Link
                         href="/#projects"
-                        className="label flex items-center gap-2 text-muted transition-colors duration-200 hover:text-fg"
+                        className="label -my-2 flex w-fit items-center gap-2 py-2 text-muted transition-colors duration-200 hover:text-fg"
                     >
                         {/* Back navigation, so a left arrow. */}
                         <ArrowLeft size={12} />

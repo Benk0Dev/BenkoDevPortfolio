@@ -23,7 +23,9 @@ export function Archive() {
                                 </span>
 
                                 <span className="label flex shrink-0 items-center gap-3 text-muted">
-                                    {project.stack.join(' · ')}
+                                    <span className="hidden sm:inline">
+                                        {project.stack.join(' · ')}
+                                    </span>
                                     {/* Stays on the site, so a right arrow. */}
                                     <ArrowRight
                                         size={12}
