@@ -1,0 +1,269 @@
+@import 'tailwindcss';
+
+/*
+ * Dark is the default theme, so the tokens below are the dark values.
+ * next-themes puts `light` on <html>, and :root.light flips them.
+ */
+@theme {
+    --color-bg: #000000;
+    --color-fg: #fafaf9;
+    --color-muted: #b2b2b0;
+    --color-faint: #7a7a78;
+    /* Between muted and faint. Lets a label sit just off the body copy
+       it introduces without dropping all the way back to faint. */
+    --color-subtle: #949492;
+    --color-ghost: #3e3e3c;
+    --color-line: rgb(250 250 249 / 0.12);
+    --color-card: #0c0c0b;
+    /* Opaque, so a card hover lightens rather than turning translucent and
+       letting the dot background show through. */
+    --color-card-hover: #171716;
+    --color-accent: #3d5afe;
+
+    /* Scrolled nav pill, transparent enough for the backdrop blur to read. */
+    --color-pill: rgb(19 19 18 / 0.62);
+    /* Raised surface inside the pill, e.g. the theme toggle. Translucent so it
+       lifts off whatever it sits on rather than needing its own hex. */
+    --color-chip: rgb(250 250 249 / 0.09);
+    --color-chip-hover: rgb(250 250 249 / 0.15);
+
+    --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+    --text-hero: clamp(3.5rem, 11vw, 9.5rem);
+    --text-hero--line-height: 1;
+    --text-hero--letter-spacing: -0.055em;
+
+    --text-section: clamp(2.5rem, 7vw, 5rem);
+    --text-section--line-height: 1;
+    --text-section--letter-spacing: -0.048em;
+
+    --text-project: clamp(2.5rem, 6vw, 4rem);
+    --text-project--line-height: 1;
+    --text-project--letter-spacing: -0.052em;
+
+    --text-lead: clamp(1.15rem, 2vw, 1.5rem);
+    --text-lead--line-height: 1.4;
+    --text-lead--letter-spacing: -0.018em;
+
+    /* Named card-title, not card. Tailwind builds text-* utilities from both
+       --text-* and --color-*, so --text-card and --color-card would both claim
+       text-card, and the colour wins. Titles painted card colour on a card. */
+    --text-card-title: clamp(1.25rem, 2vw, 1.5rem);
+    --text-card-title--line-height: 1.2;
+    --text-card-title--letter-spacing: -0.035em;
+
+    --text-body: 0.875rem;
+    --text-body--line-height: 1.7;
+
+    --text-label: 0.625rem;
+    --text-label--line-height: 1;
+    --text-label--letter-spacing: 0.15em;
+
+    --ease-site: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+    /* Left padding of the scrolled nav pill, on its own because the logo reads
+       optically lighter on its left edge than the toggle does on its right.
+       This is the one number to nudge if the pill looks lopsided. Every other
+       side stays at 10px. */
+    --pill-pad-left: 12.5px;
+
+    /* Media needs separating from the background. On black a dark shadow does
+       nothing, so dark mode lifts with light instead. Kept out of @theme,
+       Tailwind inlines theme shadow values there and the light override would
+       never take effect. */
+    --shadow-media: 0 0.75rem 2rem -1rem rgb(250 250 249 / 0.18);
+
+    /* White on black reads far fainter than black on off-white, so dark needs
+       roughly double the alpha to land at the same visual weight. */
+    --dot: rgb(250 250 249 / 0.16);
+    --dot-size: 22px;
+}
+
+:root.light {
+    --color-bg: #fafaf9;
+    --color-fg: #0a0a0a;
+    --color-muted: #4e4e4c;
+    --color-faint: #858583;
+    --color-subtle: #6b6b69;
+    --color-ghost: #c2c2bc;
+    --color-line: rgb(10 10 10 / 0.12);
+    --color-card: #f2f2ef;
+    --color-card-hover: #e9e9e5;
+    --color-accent: #3d5afe;
+    --color-pill: rgb(236 236 232 / 0.62);
+    --color-chip: rgb(10 10 10 / 0.06);
+    --color-chip-hover: rgb(10 10 10 / 0.13);
+
+    --shadow-media: 0 0.75rem 2rem -1rem rgb(10 10 10 / 0.3);
+
+    --dot: rgb(10 10 10 / 0.08);
+}
+
+@media (width < 640px) {
+    :root {
+        --dot: rgb(250 250 249 / 0.11);
+        --dot-size: 16px;
+    }
+
+    :root.light {
+        --dot: rgb(10 10 10 / 0.05);
+    }
+}
+
+/* Hero load in. CSS rather than a JS animation library, it is a plain
+   stagger and importing one would cost 47kb of JavaScript. */
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@utility rise-in {
+    animation: rise-in 420ms var(--ease-site) both;
+}
+
+/* Slider frames come in from the direction you are travelling. --slide-from is
+   set per frame so going back reads as going back. */
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(var(--slide-from, 1.5rem));
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@utility slide-in {
+    animation: slide-in 320ms var(--ease-site) both;
+}
+
+/* Section content rises in as it enters. A scroll driven animation, so no
+   observer and no JavaScript. Browsers without view() timelines just play it
+   once on load, which lands on the same final state. */
+@utility rise-on-view {
+    animation: rise-in 420ms var(--ease-site) both;
+    animation-timeline: view();
+    animation-range: entry 15% cover 35%;
+}
+
+/* The theme toggle ships all three icons and CSS picks one, so the right icon
+   is on screen at first paint rather than after hydration. */
+.theme-icon {
+    display: none;
+}
+
+:root:not([data-theme-pref]) .theme-icon-system,
+:root[data-theme-pref='system'] .theme-icon-system,
+:root[data-theme-pref='light'] .theme-icon-light,
+:root[data-theme-pref='dark'] .theme-icon-dark {
+    display: block;
+}
+
+/* Theme specific assets. Images cannot flip with a token, so the pair is
+   rendered and one is hidden. */
+.light-only {
+    display: none;
+}
+
+:root.light .dark-only {
+    display: none;
+}
+
+:root.light .light-only {
+    display: block;
+}
+
+@layer base {
+    html {
+        color-scheme: dark;
+    }
+
+    html.light {
+        color-scheme: light;
+    }
+
+    body {
+        background-color: var(--color-bg);
+        color: var(--color-muted);
+        font-family: var(--font-display);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3 {
+        color: var(--color-fg);
+        font-weight: 500;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    /* Anchored sections sit clear of the floating nav pill on jump. */
+    [id] {
+        scroll-margin-top: 6rem;
+    }
+
+    ::selection {
+        background-color: var(--color-accent);
+        color: #fafaf9;
+    }
+}
+
+/* Prose column. Anything over three lines is left-aligned inside it. */
+@utility col-prose {
+    width: 100%;
+    max-width: 34rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+}
+
+/* Card grids and multi-column blocks. */
+@utility col-wide {
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+}
+
+@utility section-y {
+    padding-block: clamp(4rem, 10vw, 8rem);
+}
+
+/* Every piece of metadata, label, nav item, tag and bit of small print. */
+@utility label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 100ms !important;
+        transition-property: opacity !important;
+        transform: none !important;
+    }
+}
