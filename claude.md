@@ -263,6 +263,10 @@ only, every project gets a slug page. `featured` is separate from `tier` and
 only decides whether a card carries the Featured pill.
 
 ```ts
+export type Media =
+  | { type: 'image'; src: StaticImageData; alt: string; caption?: string }
+  | { type: 'loop'; src: string; width: number; height: number; alt: string; caption?: string }
+
 export type Project = {
   slug: string
   tier: 'project' | 'archive'
@@ -270,19 +274,27 @@ export type Project = {
   tagline: string
   featured?: boolean
   year: string
-  status: 'shipped' | 'in progress' | 'prototype'
+  status?: 'shipped' | 'in progress' | 'prototype'
   stack: string[]
-  links: { github?: string; live?: string; demo?: string }
+  links: { label: string; href: string }[]
 
   role?: string
-  cover?: string
-  media?: { src: string; alt: string; type: 'image' | 'loop' }[]
+  cover?: StaticImageData
+  media?: Media[]
   overview?: string[]
-  stackGrouped?: { group: string; items: string[] }[]
+  stackFull?: string[]
   decisions?: { title: string; body: string }[]
-  results?: { value: string; label: string }[]
+  results?: { value: string; label: string; highlight?: boolean }[]
 }
 ```
+
+Images are imported, not path strings. `next/image` reads their real
+dimensions off the file, so nothing is hand typed and an aspect ratio cannot go
+stale. A missing file then fails the build instead of 404ing in production.
+Videos stay as paths and carry their own dimensions, they cannot be imported.
+
+`stack` is the short list on the card, four items is about the limit.
+`stackFull` is everything, on the project page.
 
 Array order is display order. No sort logic.
 
@@ -448,6 +460,15 @@ Commit after each. One section per session.
 8. Metadata, sitemap, robots, JSON-LD Person schema
 9. Populate `data/projects.ts` with the real projects and their images
 10. OG images, once there is real copy and artwork to render
+
+    Not every project has artwork, so pick per project in this order:
+
+    1. `cover`
+    2. first `media` entry, taking the first frame if it is a `loop`
+    3. a default card, drawn in the site's own style from the title and tagline
+
+    Archive entries have no cover at all, and some projects have a cover but no
+    media, so all three cases are real.
 11. Reduced motion pass, mobile pass, Lighthouse pass
 
 OG images wait for step 9, they render the real titles and artwork and there

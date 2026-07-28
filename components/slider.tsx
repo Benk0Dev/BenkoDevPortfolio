@@ -3,16 +3,24 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import type { Project } from '@/data/projects'
+import type { Media } from '@/data/projects'
 
-type Media = NonNullable<Project['media']>
-
-export function Slider({ media }: { media: Media }) {
+export function Slider({ media }: { media: Media[] }) {
     const [index, setIndex] = useState(0)
+    const [forwards, setForwards] = useState(true)
     const touchStart = useRef<number | null>(null)
 
     const many = media.length > 1
-    const go = (next: number) => setIndex((next + media.length) % media.length)
+
+    function go(next: number) {
+        setForwards(next > index)
+        setIndex((next + media.length) % media.length)
+    }
+
+    function jump(next: number) {
+        if (next === index) return
+        go(next)
+    }
 
     useEffect(() => {
         if (!many) return
@@ -42,7 +50,32 @@ export function Slider({ media }: { media: Media }) {
                 onTouchStart={(e) => (touchStart.current = e.touches[0].clientX)}
                 onTouchEnd={onTouchEnd}
             >
-                <Frame item={media[index]} />
+                {/* The caption is a sibling of the media inside a column that
+                    shrink wraps it, so it sits directly under the picture
+                    whatever its shape. Sitting outside the fixed height
+                    container left a gap under anything landscape.
+
+                    Keyed on the index so React remounts the pair and the entry
+                    animation replays on every change. */}
+                <div
+                    key={index}
+                    className="flex h-full max-w-[calc(100%-7rem)] flex-col items-center justify-center gap-4"
+                >
+                    <Frame item={media[index]} forwards={forwards} />
+
+                    {media[index].caption && (
+                        <p
+                            className="slide-in label shrink-0 text-center text-subtle"
+                            style={
+                                {
+                                    '--slide-from': forwards ? '1rem' : '-1rem',
+                                } as React.CSSProperties
+                            }
+                        >
+                            {media[index].caption}
+                        </p>
+                    )}
+                </div>
 
                 {many && (
                     <>
@@ -58,7 +91,7 @@ export function Slider({ media }: { media: Media }) {
                         <button
                             key={i}
                             type="button"
-                            onClick={() => setIndex(i)}
+                            onClick={() => jump(i)}
                             aria-label={`Go to slide ${i + 1}`}
                             aria-current={i === index}
                             className={`h-1 cursor-pointer rounded-full transition-all duration-200 ease-site ${
@@ -72,21 +105,21 @@ export function Slider({ media }: { media: Media }) {
     )
 }
 
-function Frame({ item }: { item: Media[number] }) {
-    // Capped so the image never sits under the arrows.
-    const size = 'max-h-full max-w-[calc(100%-5rem)]'
-
-    if (!item.src) {
-        return (
-            <div className={`${size} h-full w-full rounded-xl border-[0.5px] border-line bg-card`} />
-        )
-    }
+function Frame({ item, forwards }: { item: Media; forwards: boolean }) {
+    // 7rem leaves a gap either side of the 2.5rem arrows, so a full width image
+    // never runs up against them.
+    const shape =
+        'slide-in h-auto max-h-full w-auto min-h-0 max-w-full rounded-xl shadow-[var(--shadow-media)]'
+    const from = { '--slide-from': forwards ? '1.5rem' : '-1.5rem' } as React.CSSProperties
 
     if (item.type === 'loop') {
         return (
             <video
                 src={item.src}
-                className={`${size} object-contain`}
+                width={item.width}
+                height={item.height}
+                style={from}
+                className={`${shape} object-contain`}
                 muted
                 autoPlay
                 loop
@@ -96,13 +129,13 @@ function Frame({ item }: { item: Media[number] }) {
     }
 
     return (
+        // Imported image, so next/image already knows its real dimensions.
         <Image
             src={item.src}
             alt={item.alt}
-            width={1600}
-            height={1200}
             sizes="(max-width: 640px) 90vw, 44rem"
-            className={`${size} object-contain`}
+            style={from}
+            className={`${shape} object-contain`}
         />
     )
 }
@@ -115,7 +148,7 @@ function Arrow({ side, onClick }: { side: 'left' | 'right'; onClick: () => void 
             type="button"
             onClick={onClick}
             aria-label={side === 'left' ? 'Previous slide' : 'Next slide'}
-            className={`absolute top-1/2 flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-chip text-muted transition-colors duration-200 hover:text-fg ${
+            className={`absolute top-1/2 flex size-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-chip text-muted transition-colors duration-200 hover:bg-chip-hover hover:text-fg ${
                 side === 'left' ? 'left-0' : 'right-0'
             }`}
         >

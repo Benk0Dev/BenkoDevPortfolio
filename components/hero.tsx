@@ -27,8 +27,8 @@ export function Hero() {
                         in to match its theme. Both render and CSS picks one, so
                         the manual theme toggle works, which a prefers-color-scheme
                         <picture> could not do. */}
-                    <Portrait src="/benko-dark.jpg" className="dark-only" priority />
-                    <Portrait src="/benko-light.jpg" className="light-only" />
+                    <Portrait src="/images/benko-dark.jpg" className="dark-only" priority />
+                    <Portrait src="/images/benko-light.jpg" className="light-only" />
                 </div>
 
                 <h1 className="rise-in mt-[-0.22em] text-hero" style={delay(1)}>

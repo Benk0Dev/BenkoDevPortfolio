@@ -70,6 +70,12 @@
        side stays at 10px. */
     --pill-pad-left: 12.5px;
 
+    /* Media needs separating from the background. On black a dark shadow does
+       nothing, so dark mode lifts with light instead. Kept out of @theme,
+       Tailwind inlines theme shadow values there and the light override would
+       never take effect. */
+    --shadow-media: 0 0.75rem 2rem -1rem rgb(250 250 249 / 0.18);
+
     /* White on black reads far fainter than black on off-white, so dark needs
        roughly double the alpha to land at the same visual weight. */
     --dot: rgb(250 250 249 / 0.16);
@@ -90,6 +96,8 @@
     --color-pill: rgb(236 236 232 / 0.62);
     --color-chip: rgb(10 10 10 / 0.06);
     --color-chip-hover: rgb(10 10 10 / 0.13);
+
+    --shadow-media: 0 0.75rem 2rem -1rem rgb(10 10 10 / 0.3);
 
     --dot: rgb(10 10 10 / 0.08);
 }
@@ -120,6 +128,23 @@
 
 @utility rise-in {
     animation: rise-in 420ms var(--ease-site) both;
+}
+
+/* Slider frames come in from the direction you are travelling. --slide-from is
+   set per frame so going back reads as going back. */
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(var(--slide-from, 1.5rem));
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@utility slide-in {
+    animation: slide-in 320ms var(--ease-site) both;
 }
 
 /* Section content rises in as it enters. A scroll driven animation, so no

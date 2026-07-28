@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -67,19 +68,7 @@ export default async function ProjectPage({
                         <h1 className="text-project">{project.title}</h1>
                         <p className="mt-4 text-lead text-muted">{project.tagline}</p>
 
-                        <div className="label mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-muted">
-                            <span>{project.year}</span>
-                            {project.role && (
-                                <>
-                                    <Dot />
-                                    <span>{project.role}</span>
-                                </>
-                            )}
-                            <Dot />
-                            <span className={project.status === 'shipped' ? 'text-accent' : ''}>
-                                {project.status}
-                            </span>
-                        </div>
+                        <MetaRow project={project} />
 
                         <ExternalLinks links={project.links} />
                     </div>
@@ -109,10 +98,10 @@ export default async function ProjectPage({
                 </Section>
             )}
 
-            {project.stackGrouped && (
+            {project.stackFull && (
                 <Section title="Stack">
                     <ul className="col-prose flex flex-wrap justify-center gap-2">
-                        {project.stackGrouped.flatMap((group) => group.items).map((item) => (
+                        {project.stackFull.map((item) => (
                             <li
                                 key={item}
                                 className="rounded-full border-[0.5px] border-line px-2.5 py-1 font-mono text-[0.6875rem] tracking-[0.15em] text-muted"
@@ -143,12 +132,14 @@ export default async function ProjectPage({
 
             {project.results && (
                 <Section title="Results">
-                    <dl className="col-wide grid grid-cols-2 gap-8 text-center sm:grid-cols-4">
-                        {project.results.map((result, i) => (
-                            <div key={result.label}>
+                    {/* Wrapping flex rather than a fixed column count, so three
+                        or five results stay centred instead of leaving a hole. */}
+                    <dl className="col-wide flex flex-wrap justify-center gap-x-12 gap-y-10 text-center">
+                        {project.results.map((result) => (
+                            <div key={result.label} className="min-w-24">
                                 <dd
                                     className={`text-project ${
-                                        i === project.results!.length - 1 ? 'text-accent' : 'text-fg'
+                                        result.highlight ? 'text-accent' : 'text-fg'
                                     }`}
                                 >
                                     <CountUp value={result.value} />
@@ -175,17 +166,39 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     )
 }
 
-function Dot() {
-    return <span aria-hidden>&middot;</span>
+/*
+ * Built from whatever the project actually has, so a missing role or status
+ * cannot leave a separator with nothing on one side of it.
+ */
+function MetaRow({ project }: { project: Project }) {
+    const parts = [
+        { text: project.year, accent: false },
+        project.role ? { text: project.role, accent: false } : null,
+        project.status
+            ? { text: project.status, accent: project.status === 'shipped' }
+            : null,
+    ].filter((part) => part !== null)
+
+    return (
+        <div className="label mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-muted">
+            {parts.map((part, i) => (
+                <Fragment key={part.text}>
+                    {i > 0 && <span aria-hidden>&middot;</span>}
+                    <span className={part.accent ? 'text-accent' : ''}>{part.text}</span>
+                </Fragment>
+            ))}
+        </div>
+    )
 }
 
 function ExternalLinks({ links }: { links: Project['links'] }) {
-    const entries = Object.entries(links) as [string, string][]
+    // Guard against an entry with no href, so no dead pill renders.
+    const entries = links.filter((link) => link.href)
     if (entries.length === 0) return null
 
     return (
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            {entries.map(([label, href]) => (
+            {entries.map(({ label, href }) => (
                 <a
                     key={label}
                     href={href}

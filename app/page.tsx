@@ -19,7 +19,7 @@ const PERSON = {
     jobTitle: SITE.jobTitle,
     worksFor: { '@type': 'Organization', name: SITE.employer },
     url: SITE.url,
-    image: `${SITE.url}/benko-dark.jpg`,
+    image: `${SITE.url}/images/benko-dark.jpg`,
     sameAs: SOCIALS.filter((social) => social.href.startsWith('http')).map(
         (social) => social.href,
     ),

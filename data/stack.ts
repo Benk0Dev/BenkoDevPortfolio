@@ -1,8 +1,10 @@
-/* Rows in display order, taken from the archive mockup. */
 export const STACK = [
-    { label: 'Languages', items: 'Python, Java, TypeScript, JavaScript, SQL' },
-    { label: 'Frameworks', items: 'React, React Native, Next.js, Node, Express, Prisma' },
-    { label: 'Cloud', items: 'AWS (CDK, Lambda, API Gateway, Cognito, S3, Athena)' },
-    { label: 'Data', items: 'PostgreSQL, DynamoDB, Spark, PyTorch, NumPy' },
-    { label: 'Tools', items: 'Git, Docker, Jupyter' },
+    { label: 'Languages', items: 'Python, Java, TypeScript, JavaScript, PHP, SQL' },
+    { label: 'Frontend', items: 'React, React Native (Expo), Next.js, HTML, CSS, TailwindCSS' },
+    { label: 'Backend', items: 'Node.js, Express.js, Prisma, WebSockets' },
+    { label: 'Cloud', items: 'AWS CDK, Lambda, API Gateway, Cognito, S3, Google Cloud Translation' },
+    { label: 'Databases', items: 'PostgreSQL, MySQL, SQLite, DynamoDB, Neon, Supabase' },
+    { label: 'Data & ML', items: 'Athena, QuickSight, PyTorch, NumPy, Apache Spark' },
+    { label: 'Security', items: 'Linux, nmap, Burp Suite, Wireshark' },
+    { label: 'Tools', items: 'Git, GitHub, Docker, Figma, Jupyter, Insomnia, Claude Code' },
 ]
