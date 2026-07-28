@@ -6,7 +6,7 @@ import linguaChats from '@/public/images/projects/lingua/chats.png'
 import linguaSearch from '@/public/images/projects/lingua/search.png'
 import linguaLanguages from '@/public/images/projects/lingua/languages.png'
 import thePrizeHuntLive from '@/public/images/projects/theprizehunt/live.png'
-import amazonPrimeVideoCover from '@/public/images/projects/amazon-prime-video/cover.png'
+import amazonPrimeVideoCover from '@/public/images/projects/amazon-pv-internship/cover.png'
 import gofetchCover from '@/public/images/projects/gofetch/cover.png'
 import runcastCover from '@/public/images/projects/runcast/cover.png'
 import portfolioWithBlogCover from '@/public/images/projects/portfolio-with-blog/cover.png'
@@ -118,7 +118,7 @@ export const PROJECTS: Project[] = [
         ],
     },
     {
-        slug: 'the-prize-hunt',
+        slug: 'theprizehunt',
         tier: 'project',
         title: 'The Prize Hunt',
         tagline:

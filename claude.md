@@ -463,12 +463,13 @@ Commit after each. One section per session.
 
     Not every project has artwork, so pick per project in this order:
 
-    1. `cover`
-    2. first `media` entry, taking the first frame if it is a `loop`
-    3. a default card, drawn in the site's own style from the title and tagline
+    1. `cover.*` in `public/images/projects/<slug>/`
+    2. the first other still in that folder
+    3. no artwork, the card is type only
 
-    Archive entries have no cover at all, and some projects have a cover but no
-    media, so all three cases are real.
+    Videos are skipped, a frame cannot be pulled out of an mp4 at build time.
+    The image folder is named after the slug, exactly. A project whose folder
+    does not match simply gets the type only card.
 11. Reduced motion pass, mobile pass, Lighthouse pass
 
 OG images wait for step 9, they render the real titles and artwork and there
