@@ -4,6 +4,7 @@ import { Nav } from '@/components/nav'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SITE } from '@/data/site'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
     // Lets every other route give a relative URL and get an absolute one.
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <div id="nav-sentinel" aria-hidden className="absolute top-24 h-px w-full" />
                     <Nav />
                     {children}
+                    <Analytics />
                 </ThemeProvider>
             </body>
         </html>
