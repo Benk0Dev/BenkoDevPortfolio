@@ -96,7 +96,14 @@ function Card({
 function Cover({ project, wide }: { project: Project; wide: boolean }) {
     // 4/3 whatever the card width, so every cover crops the same way and a row
     // of cards reads as one set.
-    const shape = wide ? 'aspect-[4/3] sm:w-2/5 sm:shrink-0' : 'aspect-[4/3] w-full'
+    //
+    // The featured cover matches a grid cover exactly, at any container width.
+    // A grid cover is (W - 1.25rem gap) / 2 - 2.5rem padding, and the featured
+    // card's content box is W - 2.5rem, so 100% here is W - 2.5rem and the
+    // same width works out as 50% - 1.875rem.
+    const shape = wide
+        ? 'aspect-[4/3] sm:w-[calc(50%-1.875rem)] sm:shrink-0'
+        : 'aspect-[4/3] w-full'
 
     if (!project.cover) {
         // Placeholder until real covers land, so the layout is still honest.

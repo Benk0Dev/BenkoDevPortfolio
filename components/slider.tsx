@@ -8,12 +8,18 @@ import type { Media } from '@/data/projects'
 export function Slider({ media }: { media: Media[] }) {
     const [index, setIndex] = useState(0)
     const [forwards, setForwards] = useState(true)
+    // Sideways entry is a response to navigating. The first frame just appears,
+    // so it rises like every other piece of content on the site.
+    const [navigated, setNavigated] = useState(false)
+    const [loadedIndex, setLoadedIndex] = useState<number | null>(null)
     const touchStart = useRef<number | null>(null)
 
     const many = media.length > 1
+    const loaded = loadedIndex === index
 
     function go(next: number) {
         setForwards(next > index)
+        setNavigated(true)
         setIndex((next + media.length) % media.length)
     }
 
@@ -40,6 +46,10 @@ export function Slider({ media }: { media: Media[] }) {
         go(delta < 0 ? index + 1 : index - 1)
     }
 
+    const entry = navigated ? 'slide-in' : 'rise-in'
+    const slideFrom = (distance: string) =>
+        ({ '--slide-from': forwards ? distance : `-${distance}` }) as React.CSSProperties
+
     return (
         <div>
             {/* Frameless. Fixed height so nothing shifts between slides, and the
@@ -61,16 +71,27 @@ export function Slider({ media }: { media: Media[] }) {
                     key={index}
                     className="flex h-full max-w-[calc(100%-7rem)] flex-col items-center justify-center gap-4"
                 >
-                    <Frame item={media[index]} forwards={forwards} />
+                    <Frame
+                        item={media[index]}
+                        entry={entry}
+                        style={slideFrom('1.5rem')}
+                        loaded={loaded}
+                        onLoad={() => setLoadedIndex(index)}
+                        priority={index === 0}
+                        hasCaption={Boolean(media[index].caption)}
+                    />
 
+                    {/* Always rendered when the slide has one, so the frame
+                        keeps the same geometry throughout. Only its ink waits
+                        for the image, otherwise it sits alone in the middle of
+                        an empty frame and then jumps. Hidden by visibility, not
+                        opacity, which the entry animation would override. */}
                     {media[index].caption && (
                         <p
-                            className="slide-in label shrink-0 text-center text-subtle"
-                            style={
-                                {
-                                    '--slide-from': forwards ? '1rem' : '-1rem',
-                                } as React.CSSProperties
-                            }
+                            className={`${entry} label h-4 shrink-0 text-center leading-4 text-subtle ${
+                                loaded ? 'visible' : 'invisible'
+                            }`}
+                            style={slideFrom('1rem')}
                         >
                             {media[index].caption}
                         </p>
@@ -112,12 +133,51 @@ export function Slider({ media }: { media: Media[] }) {
     )
 }
 
-function Frame({ item, forwards }: { item: Media; forwards: boolean }) {
-    // 7rem leaves a gap either side of the 2.5rem arrows, so a full width image
-    // never runs up against them.
-    const shape =
-        'slide-in h-auto max-h-full w-auto min-h-0 max-w-full rounded-xl shadow-[var(--shadow-media)]'
-    const from = { '--slide-from': forwards ? '1.5rem' : '-1.5rem' } as React.CSSProperties
+function Frame({
+    item,
+    entry,
+    style,
+    loaded,
+    onLoad,
+    priority,
+    hasCaption,
+}: {
+    item: Media
+    entry: string
+    style: React.CSSProperties
+    loaded: boolean
+    onLoad: () => void
+    priority: boolean
+    hasCaption: boolean
+}) {
+    // Every media item carries its real dimensions, so the box is the right
+    // shape before a single byte of the image has arrived.
+    const ratio = item.type === 'loop' ? item.width / item.height : item.src.width / item.src.height
+
+    /*
+     * The media sizes itself, directly inside the column, which is what keeps
+     * rounded corners on the picture rather than on a box around it.
+     *
+     * An unloaded image has no pixels, so auto width collapses to Chrome's 2px
+     * placeholder and the frame had no size at all until the image arrived.
+     * That is why the caption used to sit alone in the middle and then jump.
+     * Until it loads the height is pinned to the space available and the width
+     * comes from the aspect ratio, which reserves the real box. Once loaded the
+     * pin is dropped and the two maxima take over.
+     *
+     * Until it loads the element paints as a card coloured block, so the
+     * placeholder is the media's own box and cannot be the wrong shape.
+     */
+    const box = `${entry} h-auto w-auto max-w-full shrink-0 rounded-xl shadow-[var(--shadow-media)] object-contain ${
+        hasCaption ? 'max-h-[calc(100%-2rem)]' : 'max-h-full'
+    } ${loaded ? '' : 'animate-pulse border-[0.5px] border-line bg-card'}`
+
+    const available = hasCaption ? 'calc(100% - 2rem)' : '100%'
+    const sizing = {
+        ...style,
+        aspectRatio: ratio,
+        ...(loaded ? {} : { height: available }),
+    }
 
     if (item.type === 'loop') {
         return (
@@ -125,8 +185,9 @@ function Frame({ item, forwards }: { item: Media; forwards: boolean }) {
                 src={item.src}
                 width={item.width}
                 height={item.height}
-                style={from}
-                className={`${shape} object-contain`}
+                style={sizing}
+                className={box}
+                onLoadedData={onLoad}
                 muted
                 autoPlay
                 loop
@@ -136,13 +197,15 @@ function Frame({ item, forwards }: { item: Media; forwards: boolean }) {
     }
 
     return (
-        // Imported image, so next/image already knows its real dimensions.
+        // Imported image, so next/image already knows its real size.
         <Image
             src={item.src}
             alt={item.alt}
             sizes="(max-width: 640px) 90vw, 44rem"
-            style={from}
-            className={`${shape} object-contain`}
+            priority={priority}
+            style={sizing}
+            className={box}
+            onLoad={onLoad}
         />
     )
 }

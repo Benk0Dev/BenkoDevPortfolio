@@ -211,9 +211,10 @@
         text-wrap: pretty;
     }
 
-    /* Anchored sections sit clear of the floating nav pill on jump. */
+    /* How far below the viewport top an anchored section lands, clear of the
+       floating pill. */
     [id] {
-        scroll-margin-top: 6rem;
+        scroll-margin-top: 2.65rem;
     }
 
     ::selection {
@@ -239,7 +240,9 @@
 }
 
 @utility section-y {
-    padding-block: clamp(4rem, 10vw, 8rem);
+    /* Half the spec figure, because two adjacent sections each contribute it.
+       The gap between them is what the spec names, not the padding. */
+    padding-block: clamp(3rem, 5vw, 4rem);
 }
 
 /* Every piece of metadata, label, nav item, tag and bit of small print. */

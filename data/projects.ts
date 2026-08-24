@@ -410,7 +410,7 @@ export const PROJECTS: Project[] = [
         links: [{ label: 'GitHub', href: `${GITHUB_URL}/Horse-Race-Simulator` }],
         role: 'University Project',
         media: [
-            { src: '/videos/horse-race-simulator.mp4', caption: 'Runthrough of placing a bet on the simulator', alt: 'Horse Race Simulator Video', type: 'loop', width: 1590, height: 1334 },
+            { src: '/videos/horse-race-simulator.mp4', caption: 'Runthrough of placing a bet on the simulator', alt: 'Horse Race Simulator Video', type: 'loop', width: 1590, height: 1330 },
         ],
         overview: [
             'A desktop simulator for a series of three horse races. Horses are customisable down to name, colour and saddle, and track length and race count are set before the series starts. Each horse has a confidence value that decides both how fast it runs and how likely it is to fall, so the boldest horse is not always the safest bet.',
@@ -456,7 +456,7 @@ export const PROJECTS: Project[] = [
         links: [{ label: 'GitHub', href: `${GITHUB_URL}/Dynamic-Noughts-and-Crosses-AI` }],
         role: 'A-Level Project',
         media: [
-            { src: '/videos/dynamic-noughts-and-crosses-ai.mp4', caption: 'Runthrough of playing the game', alt: 'Dynamic Noughts and Crosses AI Video', type: 'loop', width: 2390, height: 1790 },
+            { src: '/videos/dynamic-noughts-and-crosses-ai.mp4', caption: 'Runthrough of playing the game', alt: 'Dynamic Noughts and Crosses AI Video', type: 'loop', width: 2390, height: 1788 },
         ],
         overview: [
             'A desktop game where the board keeps growing. Beat the AI on a 3x3 and the next round is 4x4, then 5x5, and so on, with the run needed to win growing more slowly than the board itself. Draw and the target drops by one, down to a floor of three. Lose and you start over.',
@@ -480,7 +480,7 @@ export const PROJECTS: Project[] = [
         links: [{ label: 'GitHub', href: `${GITHUB_URL}/Particles-Collision-Simulator` }],
         role: 'Personal Project',
         media: [
-            { src: '/videos/particles-collision-simulator.mp4', caption: 'Loop of the simulation running', alt: 'Particles Collision Simulator Video', type: 'loop', width: 1592, height: 990 },
+            { src: '/videos/particles-collision-simulator.mp4', caption: 'Loop of the simulation running', alt: 'Particles Collision Simulator Video', type: 'loop', width: 1592, height: 960 },
         ],
         overview: [
             'Three balls moving along a line, bouncing off each other and off the walls at either end. Velocities after each impact come from conservation of momentum and the coefficient of restitution.',

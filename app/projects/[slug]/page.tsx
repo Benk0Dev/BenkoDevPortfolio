@@ -51,17 +51,19 @@ export default async function ProjectPage({
 
     return (
         <main className="flex min-h-dvh flex-col">
-            <section className="relative pt-28 pb-16">
+            <section className="relative pt-28 pb-10">
                 <Dots />
 
                 <div className="col-prose">
+                    {/* Back to the list this project came from, so an archive
+                        entry does not bounce you up to the cards. */}
                     <Link
-                        href="/#projects"
+                        href={project.tier === 'archive' ? '/#archive' : '/#projects'}
                         className="label -my-2 flex w-fit items-center gap-2 py-2 text-muted transition-colors duration-200 hover:text-fg"
                     >
                         {/* Back navigation, so a left arrow. */}
                         <ArrowLeft size={12} />
-                        Projects
+                        {project.tier === 'archive' ? 'Archive' : 'Projects'}
                     </Link>
 
                     <div className="mt-12 text-center">
@@ -76,7 +78,7 @@ export default async function ProjectPage({
             </section>
 
             {project.media && project.media.length > 0 && (
-                <section className="relative pb-8">
+                <section className="relative pb-4">
                     <Dots />
                     <div className="col-wide">
                         <Slider media={project.media} />
@@ -160,7 +162,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     return (
         <section className="section-y relative">
             <Dots />
-            <h2 className="rise-on-view mb-10 text-center text-section">{title}</h2>
+            <h2 className="rise-on-view mb-8 text-center text-section">{title}</h2>
             <div className="rise-on-view">{children}</div>
         </section>
     )

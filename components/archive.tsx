@@ -5,7 +5,7 @@ import { ARCHIVE } from '@/data/projects'
 
 export function Archive() {
     return (
-        <section className="section-y relative">
+        <section id="archive" className="section-y relative">
             <Dots />
 
             <div className="col-wide">
