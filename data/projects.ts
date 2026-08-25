@@ -1,17 +1,31 @@
 import type { StaticImageData } from 'next/image'
 
+// Lingua
 import linguaCover from '@/public/images/projects/lingua/cover.png'
 import linguaChat from '@/public/images/projects/lingua/chat.png'
 import linguaChats from '@/public/images/projects/lingua/chats.png'
 import linguaSearch from '@/public/images/projects/lingua/search.png'
 import linguaLanguages from '@/public/images/projects/lingua/languages.png'
+// GingerTutor
 import gingerTutorCover from '@/public/images/projects/gingertutor/cover.png'
 import gingerTutorGroups from '@/public/images/projects/gingertutor/groups.png'
 import gingerTutorMobile from '@/public/images/projects/gingertutor/mobile.png'
+// The Prize Hunt
 import thePrizeHuntLive from '@/public/images/projects/theprizehunt/live.png'
+// Amazon Prime Video
 import amazonPrimeVideoCover from '@/public/images/projects/amazon-pv-internship/cover.png'
+// GoFetch
 import gofetchCover from '@/public/images/projects/gofetch/cover.png'
+import gofetchMinder from '@/public/images/projects/gofetch/minder.png'
+import gofetchPayment from '@/public/images/projects/gofetch/payment.png'
+import gofetchBookings from '@/public/images/projects/gofetch/bookings.png'
+import gofetchRequest from '@/public/images/projects/gofetch/request.png'
+import gofetchProfile from '@/public/images/projects/gofetch/profile.png'
+import gofetchChat from '@/public/images/projects/gofetch/chat.png'
+import gofetchReports from '@/public/images/projects/gofetch/reports.png'
+// RunCast
 import runcastCover from '@/public/images/projects/runcast/cover.png'
+// Portfolio with Blog
 import portfolioWithBlogCover from '@/public/images/projects/portfolio-with-blog/cover.png'
 
 const GITHUB_URL = 'https://github.com/Benk0Dev'
@@ -269,41 +283,54 @@ export const PROJECTS: Project[] = [
         slug: 'gofetch',
         tier: 'project',
         title: 'GoFetch',
-        tagline: 'A pet minding web platform.',
+        tagline: 'A two sided pet minding marketplace.',
         year: '2025',
         status: 'prototype',
         stack: ['React', 'TypeScript', 'Express', 'Socket.IO'],
-        links: [{ label: 'GitHub', href: `${GITHUB_URL}/gofetch` }],
+        links: [{ label: 'GitHub', href: `${GITHUB_URL}/GoFetch` }],
         role: 'University Group Project, Team Lead',
         cover: gofetchCover,
         media: [
-            { src: gofetchCover, caption: 'Minder browse page', alt: 'GoFetch Screenshot', type: 'image' },
+            { src: gofetchCover, caption: 'Browsing minders by service, price, rating and distance', alt: 'Browse Page Screenshot', type: 'image' },
+            { src: gofetchMinder, caption: 'A minder profile and the services they offer', alt: 'Minder Profile Screenshot', type: 'image' },
+            { src: gofetchPayment, caption: 'Booking summary and checkout', alt: 'Payment Page Screenshot', type: 'image' },
+            { src: gofetchRequest, caption: 'A minder deciding on an incoming request', alt: 'Booking Request Screenshot', type: 'image' },
+            { src: gofetchBookings, caption: 'An owner\'s bookings, split by stage', alt: 'Owner Bookings Screenshot', type: 'image' },
+            { src: gofetchProfile, caption: 'A minder managing what owners see', alt: 'Minder Profile Management Screenshot', type: 'image' },
+            { src: gofetchChat, caption: 'Messaging between an owner and a minder', alt: 'Messaging Screenshot', type: 'image' },
+            { src: gofetchReports, caption: 'An admin resolving a report', alt: 'Admin Reports Screenshot', type: 'image' },
         ],
         overview: [
-            'A two sided platform connecting pet owners with local pet minders. Minders set up a profile and list the services they offer. Owners add their pets, browse minders by location, price and rating, then book and pay for a service.',
-            'Each side gets its own dashboard covering bookings, services, pets and reviews, with real time messaging between owners and minders and an admin area for handling reports and suspending accounts. Built as a prototype, so payments are simulated and data sits in local JSON files rather than a real database.',
-            'Led a team of seven from research and system design through to build. I designed the interface and built most of the front end, including the booking workflow, filtered browsing and both dashboards. My first product build.',
+            'A two sided platform connecting pet owners with local pet minders. Minders list the services they offer and their prices. Owners add their pets, browse minders near them, then book and pay for a service.',
+            'Most of the work sits around the booking itself. The minder accepts or declines the request, it moves through its stages automatically as the time passes, and both sides have to confirm it took place before it closes. A completed booking is what unlocks a review, and those reviews feed the ratings the next owner browses on. Payments are simulated, so no money moves.',
+            'Owners and minders each get their own dashboard, with messaging between them. There is also an admin role, since a marketplace that puts strangers in each other\'s homes needs a way to handle people. Users report each other, and an admin resolves the report with a warning, a suspension or a ban.',
+            'I led a team of seven, designed the interface and built most of the front end. My first product build.',
         ],
         stackFull: [
             'React',
             'Vite',
+            'TypeScript',
             'CSS',
             'Node.js',
             'Express',
-            'TypeScript',
-            'Multer',
             'Socket.IO',
+            'Multer',
+            'node-cron',
             'JSON store',
-            'Google Maps',
+            'Google Maps Platform',
         ],
         decisions: [
+            {
+                title: 'Running the team',
+                body: 'Seven people on one codebase, four weeks of build time. I took the lead on how we operated. I set up the repo and the branching and review standards, ran a Notion board for the schedule and task assignment, split the work into pairs, held calls twice a week, and reviewed every merge. I checked in constantly, and where someone had fallen behind I sat with them and filled them in properly.',
+            },
             {
                 title: 'One account, two roles',
                 body: 'Owners and minders could have been separate account types, but plenty of people are both, and that would have meant two logins and two profiles for the same person. A user holds either role or both and switches between them, with the dashboard changing to match.',
             },
             {
-                title: 'No database',
-                body: 'Data sits in JSON files that the server reads and writes directly. It made the project runnable by anyone on the team with nothing to install or configure, which mattered more than durability for a prototype with a fixed deadline. It would not survive real use, and that was the accepted trade.',
+                title: 'No database, no real auth',
+                body: 'Data sits in JSON files that the server reads and writes directly, loaded into memory on start. Logins live in those same files, passwords in plain text, and a session is a user id kept in local storage. It meant anyone on the team could run the project with nothing to install or configure, which mattered more than durability for a prototype with a fixed deadline. None of it would survive real use, and that was the accepted trade.',
             },
         ],
     },
