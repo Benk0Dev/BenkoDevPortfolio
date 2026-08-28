@@ -11,6 +11,11 @@ export const SOCIALS = [
         sameTab: false,
     },
     {
+        label: 'X',
+        href: 'https://x.com/benkodev',
+        sameTab: false,
+    },
+    {
         // mailto hands off to a mail client, so no new tab to open.
         label: 'Email',
         href: 'mailto:bkuliesis@gmail.com',

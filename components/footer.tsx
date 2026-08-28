@@ -1,8 +1,6 @@
-import { ArrowUpRight, Mail } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
+import { ArrowUpRight } from 'lucide-react'
+import { SOCIAL_ICONS } from '@/components/brand-icons'
 import { SOCIALS } from '@/data/socials'
-
-const ICONS = { LinkedIn: LinkedinIcon, GitHub: GithubIcon, Email: Mail }
 
 // mt-auto so a short page still pushes the footer to the bottom. It does
 // nothing unless the parent is a flex column, so the homepage is unaffected.
@@ -23,7 +21,7 @@ export function Footer() {
 
                 <ul className="flex items-center gap-2">
                     {SOCIALS.map((social) => {
-                        const Icon = ICONS[social.label as keyof typeof ICONS]
+                        const Icon = SOCIAL_ICONS[social.label as keyof typeof SOCIAL_ICONS]
                         return (
                             <li key={social.label}>
                                 <a

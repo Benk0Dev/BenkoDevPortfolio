@@ -1,11 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowDown, ArrowUpRight, Mail } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from '@/components/brand-icons'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { SOCIAL_ICONS } from '@/components/brand-icons'
 import { Dots } from '@/components/dots'
 import { SOCIALS } from '@/data/socials'
-
-const ICONS = { LinkedIn: LinkedinIcon, GitHub: GithubIcon, Email: Mail }
 
 // Rise and fade on load, 40ms apart, once. Plain CSS, so the hero stays a
 // server component and ships no JavaScript of its own.
@@ -39,35 +37,54 @@ export function Hero() {
                     Software engineer &middot; London
                 </p>
 
-                <div className="rise-in mt-10 flex items-center gap-3" style={delay(3)}>
+                {/* Wraps, so a fourth social cannot push the row past a narrow
+                    viewport. The socials are grouped, so they break away as a
+                    set rather than leaving one of them stranded on its own. */}
+                <div
+                    className="rise-in mt-10 flex flex-wrap items-center justify-center gap-2 sm:gap-3"
+                    style={delay(3)}
+                >
                     {/* A plain anchor, not next/link. Link prefetches, and /cv
                         redirects to the PDF, so every visitor was downloading
-                        it whether they opened it or not. */}
+                        it whether they opened it or not.
+
+                        Drops to "CV" on a phone, which is what buys the room to
+                        keep this row on one line. The label is spelled out for
+                        screen readers either way, since hiding the word takes
+                        it out of the accessible name too. */}
                     <a
                         href="/cv"
                         target="_blank"
                         rel="noreferrer"
+                        aria-label="View CV"
                         className="label flex items-center gap-2 rounded-full border-[0.5px] border-line px-5 py-3.5 text-fg transition-colors duration-200 hover:bg-chip"
                     >
-                        View CV
+                        {/* One span, so the label stays a single flex item.
+                            Split across two, the gap-2 lands between the words. */}
+                        <span>
+                            <span className="hidden sm:inline">View </span>CV
+                        </span>
                         <ArrowUpRight size={14} />
                     </a>
 
-                    {SOCIALS.map((social) => {
-                        const Icon = ICONS[social.label as keyof typeof ICONS]
-                        return (
-                        <a
-                            key={social.label}
-                            href={social.href}
-                            target={social.sameTab ? undefined : '_blank'}
-                            rel={social.sameTab ? undefined : 'noreferrer'}
-                            aria-label={social.label}
-                            className="flex size-12 items-center justify-center rounded-full border-[0.5px] border-line text-fg transition-colors duration-200 hover:bg-chip"
-                        >
-                            <Icon size={18} />
-                        </a>
-                        )
-                    })}
+                    <div className="flex items-center gap-2 sm:gap-3">
+                        {SOCIALS.map((social) => {
+                            const Icon =
+                                SOCIAL_ICONS[social.label as keyof typeof SOCIAL_ICONS]
+                            return (
+                                <a
+                                    key={social.label}
+                                    href={social.href}
+                                    target={social.sameTab ? undefined : '_blank'}
+                                    rel={social.sameTab ? undefined : 'noreferrer'}
+                                    aria-label={social.label}
+                                    className="flex size-12 items-center justify-center rounded-full border-[0.5px] border-line text-fg transition-colors duration-200 hover:bg-chip"
+                                >
+                                    <Icon size={18} />
+                                </a>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
 
